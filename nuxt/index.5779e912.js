@@ -1,0 +1,1 @@
+import{a as o,o as t,b as n,F as s,e}from"./entry.85293883.js";const a={},c=e("p",{class:"text-spotify-green underline"},"Hello World",-1),r=e("p",null,"I'm a god",-1);function l(_,d){return t(),n(s,null,[c,r],64)}const f=o(a,[["render",l]]);export{f as default};
