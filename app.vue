@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-spotify-black h-screen w-screen">
-    <p class="text-spotify-green underline">Hello World</p>
-  </div>
+  <main class="bg-spotify-black h-screen w-screen">
+    <NuxtPage />
+  </main>
 </template>
