@@ -3,3 +3,9 @@
     <NuxtPage />
   </main>
 </template>
+
+<style>
+body {
+  @apply text-white
+}
+</style>
