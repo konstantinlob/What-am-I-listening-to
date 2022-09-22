@@ -1,3 +1,7 @@
-<template>
-    <p class="text-spotify-green underline">Hello World</p>
-</template>
+<script setup>
+    if(!localStorage.getItem('auth-token')){
+        navigateTo("/login");
+    }else{
+        navigateTo('/test')
+    }
+</script>
