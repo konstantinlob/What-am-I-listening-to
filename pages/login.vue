@@ -79,7 +79,7 @@
         <div class="pageBody">
             <div>
                 <h1 class="flex justify-center text-xl font-bold">What Am I Listening To?</h1>
-                <h2 class="flex justify-center">Analize your listening habits</h2>
+                <h2 class="flex justify-center">Analyze your listening habits</h2>
             </div>
             <div class="flex flex-col items-center">
                 <button @click="login()" class="bg-spotify-green px-8 py-4 h-min rounded-lg flex flex-row items-center font-bold">
