@@ -68,8 +68,8 @@
 
     const params = new URLSearchParams(window.location.search);
     const error = params.get('error');
-    const pkce = params.get('code');
-    if(pkce){
+    const exchangeCodeForToken = !!params.get('code');
+    if(exchangeCodeForToken){
         await loadToken();  // wait until loaded
     }
 </script>
