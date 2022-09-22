@@ -3,14 +3,8 @@
 
     const client_id = "20aa48c2719e42c0be5f3b834942f06d";
     const scopes = [];  // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
-    const redirect_uri = new URL(window.location);  // use the current location (to ensure the right schema, server and endpoint)
+    const redirect_uri = new URL(window.location);  // this parameter needs to approved by the accountable Spotify Developer
     redirect_uri.search = "";  // clear query parameters
-    // const auth_token = localStorage.getItem('auth-token');
-
-    // async function logout(){
-    //     localStorage.removeItem('auth-token');
-    //     navigateTo('/');
-    // }
 
     async function login(){
         const pkce = pkceChallenge();
