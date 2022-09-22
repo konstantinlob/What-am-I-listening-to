@@ -3,14 +3,14 @@
 
     const client_id = "20aa48c2719e42c0be5f3b834942f06d";
     const scopes = [];  // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
-    const redirect_uri = new URL(window.location);  // use the current location
+    const redirect_uri = new URL(window.location);  // use the current location (to ensure the right schema, server and endpoint)
     redirect_uri.search = "";  // clear query parameters
-    const auth_token = localStorage.getItem('auth-token');
+    // const auth_token = localStorage.getItem('auth-token');
 
-    async function logout(){
-        localStorage.removeItem('auth-token');
-        navigateTo('/');
-    }
+    // async function logout(){
+    //     localStorage.removeItem('auth-token');
+    //     navigateTo('/');
+    // }
 
     async function login(){
         const pkce = pkceChallenge();
@@ -39,14 +39,14 @@
             code: pkce,
             redirect_uri: redirect_uri,
             client_id: client_id,
-            code_verifier: code_verifier
+            code_verifier: code_verifier,
         };
         
         const response = await fetch(url, {
             method: "POST",
             body: new URLSearchParams(form),
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         });
 
@@ -66,7 +66,7 @@
         }else{
             localStorage.setItem('auth-token', data.access_token);
             localStorage.setItem('refresh-token', data.refresh_token);
-            localStorage.setItem('expire-time', Date.now() + data.expires_in);  // timestamp
+            localStorage.setItem('auth-token-expiration-timestamp', Date.now() + data.expires_in);
             localStorage.removeItem('code-verifier');
             navigateTo('/');
         }
@@ -88,12 +88,13 @@
                 <h2 class="flex justify-center">Analize your listening habits</h2>
             </div>
             <div class="flex flex-col items-center">
-                <button class="bg-spotify-green px-8 py-4 h-min rounded-lg flex flex-row items-center font-bold">
+                <button @click="login()" class="bg-spotify-green px-8 py-4 h-min rounded-lg flex flex-row items-center font-bold">
                     <img src="~/assets/svg/Spotify_Logo_White.svg" alt="Spotify Logo" class="h-10"/>
                     <span class="pl-2 text-[25px]">login</span>
                 </button>
                 <span class="flex items-center">Secured by OAuth2.0</span>
             </div>
+            <p v-if="error">{{ error }}</p>
         </div>
         <div class="flex flex-col items-center">
             <button class="bg-purple px-4 py-2 h-min rounded-lg flex flex-row items-center font-bold">

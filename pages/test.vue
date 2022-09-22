@@ -17,24 +17,24 @@
 </template>
 
 <script setup>
-    const auth_token = localStorage.getItem('auth-token')
+    const auth_token = localStorage.getItem('auth-token');
 
-    var data
-    var error
+    var data;
+    var error;
 
     if(!auth_token){
-        navigateTo('/login')
+        navigateTo('/login');
     }else{
         const response = await fetch('https://api.spotify.com/v1/me', {
             headers: {
-                'Authorization': `Bearer ${auth_token}`
+                'Authorization': `Bearer ${auth_token}`,
             }
-        })
+        });
         if(!response.ok){
-            error = await response.text()
+            error = await response.text();
         }
         else{
-            data = await response.json()
+            data = await response.json();
         }
     }
 </script>
