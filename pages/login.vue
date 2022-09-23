@@ -5,11 +5,14 @@
     const scopes = [];  // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
 
     async function login(){
-        const redirect_uri = new URL(window.location.href.replace("/\/login/", "/\/auth/"));  // this parameter needs to approved in the Spotify Developer Dashboard
+        const redirect_uri = new URL(window.location.href.replace("\/login", "\/auth"));  // this parameter needs to approved in the Spotify Developer Dashboard
         redirect_uri.search = "";
 
         const pkce = pkceChallenge();
+
         localStorage.setItem('code-verifier', pkce.code_verifier); //save for PKCE code challenge verification
+        localStorage.setItem('redirect_uri', redirect_uri);
+
 
         const url = new URL('/authorize', 'https://accounts.spotify.com/');
         url.searchParams.append('client_id', client_id);
