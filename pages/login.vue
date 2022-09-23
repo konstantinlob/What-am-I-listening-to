@@ -3,14 +3,13 @@
 
     const client_id = "20aa48c2719e42c0be5f3b834942f06d";
     const scopes = [];  // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
-    const redirect_uri = new URL(window.location.href.replace("/\/login/", "/\/home/"));  // this parameter needs to approved in the Spotify Developer Dashboard
-    redirect_uri.search = "";  // clear query parameters
 
     async function login(){
-        const pkce = pkceChallenge();
+        const redirect_uri = new URL(window.location);  // this parameter needs to approved in the Spotify Developer Dashboard
+        redirect_uri.search = "";
 
-        // save for pkce post-request
-        localStorage.setItem('code-verifier', pkce.code_verifier);
+        const pkce = pkceChallenge();
+        localStorage.setItem('code-verifier', pkce.code_verifier); //save for PKCE code challenge verification
 
         const url = new URL('/authorize', 'https://accounts.spotify.com/');
         url.searchParams.append('client_id', client_id);
@@ -19,14 +18,14 @@
         url.searchParams.append('scopes', scopes.join(" "));
         url.searchParams.append('code_challenge_method', 'S256');
         url.searchParams.append('code_challenge', pkce.code_challenge);
-        navigateTo(url.toString(), {external: true});  // page redirect
+        navigateTo(url.toString(), {external: true});
     }
 
     async function loadToken(){
-        // generated in login()
-        const code_verifier = localStorage.getItem('code-verifier');
-
+        // login() only returns a code challenge. This function turns the code challenge into an auth-token
         const url = new URL('/api/token', 'https://accounts.spotify.com/');
+        const redirect_uri = window.location.href.replace("/\/login/", "/\/home/"); // this parameter needs to approved in the Spotify Developer Dashboard
+        const code_verifier = localStorage.getItem('code-verifier');
 
         const form = {
             grant_type: "authorization_code",
