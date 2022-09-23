@@ -1,5 +1,5 @@
 <script setup>
-    const token = localStorage.getItem('auth-token')
+    const token = localStorage.getItem('auth-token');
 
     function copyToken(){
         navigator.clipboard.writeText(token);
