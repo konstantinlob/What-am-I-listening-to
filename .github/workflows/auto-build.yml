@@ -6,6 +6,7 @@ name: Automatic build and deploy of the application
 on:
   push:
     branches: [ "master" ]
+  workflow_dispatch:
 
 permissions:
   contents: write
