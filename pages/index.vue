@@ -1,7 +1,7 @@
 <script setup>
     if(!localStorage.getItem('auth-token')){
         navigateTo("/login");
-    }else{
+    } else {
         navigateTo('/test');
     }
 </script>
