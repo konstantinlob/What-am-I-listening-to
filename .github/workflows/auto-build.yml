@@ -6,8 +6,6 @@ name: Automatic build and deploy of the application
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
 
 permissions:
   contents: write
@@ -31,6 +29,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: git config --global user.name 'Github Actions'
+    - run: git config --global user.email 'action@github.com'
     - run: npm clean-install
     - run: npm run build  # npm run deploy would build and deploy but it's better to split these two
     - run: npm run postdeploy
