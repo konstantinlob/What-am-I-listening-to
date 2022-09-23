@@ -5,7 +5,3 @@
         navigateTo('/test');
     }
 </script>
-
-<template>
-    <p>...</p>
-</template>
