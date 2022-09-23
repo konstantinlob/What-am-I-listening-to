@@ -3,7 +3,7 @@
 
     const client_id = "20aa48c2719e42c0be5f3b834942f06d";
     const scopes = [];  // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
-    const redirect_uri = new URL(window.location);  // this parameter needs to approved by the accountable Spotify Developer
+    const redirect_uri = new URL(window.location.href.replace("/\/login/", "/\/home/"));  // this parameter needs to approved in the Spotify Developer Dashboard
     redirect_uri.search = "";  // clear query parameters
 
     async function login(){
