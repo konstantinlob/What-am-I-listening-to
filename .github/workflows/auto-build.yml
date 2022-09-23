@@ -31,8 +31,19 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: git config --global user.name 'Github Actions'
-    - run: git config --global user.email 'action@github.com'
     - run: npm clean-install
     - run: npm run build  # npm run deploy would build and deploy but it's better to split these two
-    - run: npm run postdeploy
+    - name: copy
+      env:
+        SRC_FOLDER_PATH: 'static'
+        TARGET_BRANCH: 'gh-pages'
+      run: |
+        files=$(find $SRC_FOLDER_PATH -type f) # get the file list
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git fetch                         # fetch branches
+        git checkout $TARGET_BRANCH       # checkout to your branch
+        git checkout ${GITHUB_REF##*/} -- $files # copy files from the source branch
+        git add -A
+        git diff-index --quiet HEAD ||  git commit -am "deploy files"  # commit to the repository (ignore if no modification)
+        git push origin $TARGET_BRANCH # push to remote branch
