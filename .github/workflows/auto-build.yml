@@ -35,7 +35,7 @@ jobs:
     - run: npm run build  # npm run deploy would build and deploy but it's better to split these two
     - name: copy
       env:
-        SRC_FOLDER_PATH: 'static'
+        SRC_FOLDER_PATH: '.output/public'
         TARGET_BRANCH: 'gh-pages'
       run: |
         files=$(find $SRC_FOLDER_PATH -type f) # get the file list
