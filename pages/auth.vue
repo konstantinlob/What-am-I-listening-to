@@ -1,22 +1,23 @@
-<script setup>
+<script lang="ts" setup>
     // login() only returns a code challenge. This script turns the code challenge into an auth-token
     const params = new URLSearchParams(window.location.search);
     if (params.has("error")) {
         console.log(params.get("error"));
-        let errorUrl = new URL("/error").searchParams.append("redirect-uri", "/login");
+        let errorUrl = new URL("/error");
+        errorUrl.searchParams.append("redirect-uri", "/login");
         navigateTo(errorUrl);
     }
-    
+
+    const currentLocation = new URL(window.location.href);
+    currentLocation.search = "";
     const form = {
         grant_type: "authorization_code",
-        code: params.code,
-        redirect_uri: window.location.href, // required, but not used for redirect
+        code: params.get("code"),
+        redirect_uri: currentLocation.toString(), // required, but not used for redirect
         client_id: "20aa48c2719e42c0be5f3b834942f06d",
         code_verifier: localStorage.getItem('code-verifier'),
     };
-    
-    const url = new URL('/api/token', 'https://accounts.spotify.com/');
-    const response = await fetch(url, {
+    const tokenRequest = fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
         body: new URLSearchParams(form),
         headers: {
@@ -24,23 +25,25 @@
         }
     });
 
-    const data = await response.json();
-    // {
-    // "access_token": "NgCXRK...MzYjw",
-    // "token_type": "Bearer",
-    // "scope": "user-read-private user-read-email",
-    // "expires_in": 3600,
-    // "refresh_token": "NgAagA...Um_SHo"
-    // }
+    tokenRequest.then(repsonse => repsonse.json().then(answer => {
+        if (answer.error) {
+            console.error(answer.error);
+            navigateTo("/error?redirect-uri=/login");
+        } else {
+            localStorage.setItem('auth-token', answer.access_token);
+            localStorage.setItem('refresh-token', answer.refresh_token);
+            localStorage.setItem('auth-token-expiration-timestamp', (answer.expires_in * 1000 + Date.now()).toString());
+        }
+        navigateTo('/home');
+    }));
 
-    if (data.error) {
-        console.log(data.error);
+    tokenRequest.catch(error => {
+        console.error(error);
         navigateTo("/error?redirect-uri=/login");
-    } else {
-        localStorage.setItem('auth-token', data.access_token);
-        localStorage.setItem('refresh-token', data.refresh_token);
-        localStorage.setItem('auth-token-expiration-timestamp', Date.now() + data.expires_in);
-        localStorage.removeItem('code-verifier');
-    }
-    navigateTo('/home');
+    });
+
+    tokenRequest.finally(() => {
+        localStorage.removeItem("code-verifier");
+        localStorage.removeItem("auth-state");
+    });
 </script>
