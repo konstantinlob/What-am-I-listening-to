@@ -31,6 +31,11 @@
             navigateTo("/error?redirect-uri=/login");
             return;
         }
+        if (localStorage.getItem("auth-state") != answer.state) {
+            console.error("State missmatch. The authorization integrity might have been compormized!");
+            navigateTo("/error?redirect-uri=/login");
+            return;
+        }
         
         localStorage.setItem('auth-token', answer.access_token);
         localStorage.setItem('refresh-token', answer.refresh_token);
