@@ -1,24 +1,31 @@
-<script setup>
+<script lang="ts" setup>
     import pkceChallenge from 'pkce-challenge';
 
     const client_id = "20aa48c2719e42c0be5f3b834942f06d";
     const scopes = [];  // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
 
-    async function login(){
+    function generateRamdomHexString(len: number = 15): string {
+        var arr = new Uint8Array(len / 2);
+        window.crypto.getRandomValues(arr);
+        return Array.from(arr, num => num.toString(16).padStart(2, "0")).join('');
+    }
+
+    async function login() {
         const redirect_uri = new URL(window.location.href.replace("\/login", "\/auth"));  // this parameter needs to approved in the Spotify Developer Dashboard
         redirect_uri.search = "";
 
+        const state = generateRamdomHexString();
+        localStorage.setItem("auth-state", state);
+
         const pkce = pkceChallenge();
-
         localStorage.setItem('code-verifier', pkce.code_verifier); //save for PKCE code challenge verification
-        localStorage.setItem('redirect_uri', redirect_uri);
-
 
         const url = new URL('/authorize', 'https://accounts.spotify.com/');
         url.searchParams.append('client_id', client_id);
         url.searchParams.append('response_type', 'code');
-        url.searchParams.append('redirect_uri', redirect_uri);
+        url.searchParams.append('redirect_uri', redirect_uri.toString());
         url.searchParams.append('scopes', scopes.join(" "));
+        url.searchParams.append('state', state);
         url.searchParams.append('code_challenge_method', 'S256');
         url.searchParams.append('code_challenge', pkce.code_challenge);
         navigateTo(url.toString(), {external: true});
