@@ -2,10 +2,12 @@
     // login() only returns a code challenge. This script turns the code challenge into an auth-token
     const params = new URLSearchParams(window.location.search);
     if (params.has("error")) {
-        console.log(params.get("error"));
-        let errorUrl = new URL("/error");
-        errorUrl.searchParams.append("redirect-uri", "/login");
-        navigateTo(errorUrl);
+        console.error(params.get("error"));
+        navigateTo("/error?redirect-uri=/login");
+    }
+    if (localStorage.getItem("auth-state") != params.get("state")) {
+        console.error("State missmatch. The authorization integrity might have been compormized!");
+        navigateTo("/error?redirect-uri=/login");
     }
 
     const currentLocation = new URL(window.location.href);
@@ -28,11 +30,6 @@
     tokenRequest.then(repsonse => repsonse.json().then(answer => {
         if (answer.error) {
             console.error(answer.error);
-            navigateTo("/error?redirect-uri=/login");
-            return;
-        }
-        if (localStorage.getItem("auth-state") != answer.state) {
-            console.error("State missmatch. The authorization integrity might have been compormized!");
             navigateTo("/error?redirect-uri=/login");
             return;
         }
