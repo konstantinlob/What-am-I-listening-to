@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
     function goBack() {
         let params = new URLSearchParams(window.location.search);
         navigateTo(params.get("redirect-uri"));
