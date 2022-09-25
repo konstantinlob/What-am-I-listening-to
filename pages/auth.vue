@@ -29,11 +29,12 @@
         if (answer.error) {
             console.error(answer.error);
             navigateTo("/error?redirect-uri=/login");
-        } else {
-            localStorage.setItem('auth-token', answer.access_token);
-            localStorage.setItem('refresh-token', answer.refresh_token);
-            localStorage.setItem('auth-token-expiration-timestamp', (answer.expires_in * 1000 + Date.now()).toString());
+            return;
         }
+        
+        localStorage.setItem('auth-token', answer.access_token);
+        localStorage.setItem('refresh-token', answer.refresh_token);
+        localStorage.setItem('auth-token-expiration-timestamp', (answer.expires_in * 1000 + Date.now()).toString());
         navigateTo('/home');
     }));
 
