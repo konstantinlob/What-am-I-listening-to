@@ -2,7 +2,7 @@
     // login() only returns a code challenge. This script turns the code challenge into an auth-token
     const params = new URLSearchParams(window.location.search);
     if (params.has("error")) {
-        console.error(params.get("error"));
+        console.log(params.get("error"));
         navigateTo("/error?redirect-uri=/login");
     }
     if (localStorage.getItem("auth-state") != params.get("state")) {
@@ -12,7 +12,7 @@
 
     const currentLocation = new URL(window.location.href);
     currentLocation.search = "";
-    const form = {
+    const grant = {
         grant_type: "authorization_code",
         code: params.get("code"),
         redirect_uri: currentLocation.toString(), // required, but not used for redirect
@@ -21,7 +21,7 @@
     };
     const tokenRequest = fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
-        body: new URLSearchParams(form),
+        body: new URLSearchParams(grant),
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
         }
