@@ -1,11 +1,7 @@
-<script setup>
+<script lang="ts" setup>
     if(!localStorage.getItem('auth-token')){
         navigateTo("/login");
-    }else{
+    } else {
         navigateTo('/test');
     }
 </script>
-
-<template>
-    <p>...</p>
-</template>
