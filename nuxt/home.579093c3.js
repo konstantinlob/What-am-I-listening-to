@@ -1,1 +1,0 @@
-import{h as o,o as t,e as s,F as n,f as e}from"./entry.97438936.js";const c={},r=e("h1",null,"Hello World",-1),a=e("h2",null,"We need to conceptulaize a flow of what the user sees from here",-1);function l(_,f){return t(),s(n,null,[r,a],64)}const d=o(c,[["render",l]]);export{d as default};
