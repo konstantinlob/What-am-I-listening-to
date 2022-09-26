@@ -5,11 +5,11 @@
         // login() only returns a code challenge. This function turns the code challenge into an auth-token
         const params = new URLSearchParams(window.location.search);
         if (params.has("error")) {
-            throwLoginError("Spotify Authorization error: " + params.get("error"));
+            handleLoginError("Spotify Authorization error: " + params.get("error"));
             return;
         }
         if (localStorage.getItem("auth-state") != params.get("state")) {
-            throwLoginError("State missmatch. The authorization integrity might have been compormized!");
+            handleLoginError("State missmatch. The authorization integrity might have been compormized!");
             return;
         }
     
@@ -54,7 +54,7 @@
         });
     }
 
-    function throwLoginError(msg: string) {
+    function handleLoginError(msg: string) {
         console.error(msg);
         navigateTo("/error?redirect-uri=/login");
     }
