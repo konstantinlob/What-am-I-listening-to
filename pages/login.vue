@@ -11,8 +11,9 @@
     }
 
     async function login() {
-        const redirect_uri = new URL(window.location.href.replace("\/login", "\/auth"));  // this parameter needs to approved in the Spotify Developer Dashboard
+        const redirect_uri = new URL(window.location.href);  // this parameter needs to approved in the Spotify Developer Dashboard
         redirect_uri.search = "";
+        redirect_uri.pathname = redirect_uri.pathname.replace("login", "auth");
 
         const state = generateRamdomHexString();
         localStorage.setItem("auth-state", state);
