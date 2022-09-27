@@ -1,1 +1,1 @@
-export { tradeCodeForToken, refreshAccessToken } from "./access-token";
+export { tradeCodeForToken, refreshAccessToken, handleLoginError } from "./access-token";

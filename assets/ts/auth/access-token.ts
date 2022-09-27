@@ -1,23 +1,11 @@
 import { navigateTo } from "#imports";
 
-export function tradeCodeForToken() {
+export function tradeCodeForToken(codeChallenge: string, redirectUrl: URL) {
     // login() only returns a code challenge. This function turns the code challenge into an auth-token
-    const params = new URLSearchParams(window.location.search);
-    if (params.has("error")) {
-        handleLoginError("Spotify Authorization error: " + params.get("error"));
-        return;
-    }
-    if (localStorage.getItem("auth-state") != params.get("state")) {
-        handleLoginError("State missmatch. The authorization integrity might have been compormized!");
-        return;
-    }
-
-    const currentLocation = new URL(window.location.href);
-    currentLocation.search = "";
     const grant = {
         grant_type: "authorization_code",
-        code: params.get("code"),
-        redirect_uri: currentLocation.toString(), // required, but not used for redirect
+        code: codeChallenge,
+        redirect_uri: redirectUrl.toString(), // required, but not used for redirect
         client_id: "20aa48c2719e42c0be5f3b834942f06d",
         code_verifier: localStorage.getItem('code-verifier'),
     };
@@ -86,7 +74,7 @@ export function refreshAccessToken() {
     });
 }
 
-function handleLoginError(msg: string) {
+export function handleLoginError(msg: string) {
     console.error(msg);
     navigateTo("/error?redirect-uri=/login");
 }
