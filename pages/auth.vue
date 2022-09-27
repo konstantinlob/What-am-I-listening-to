@@ -30,28 +30,49 @@
             }
         });
     
-        tokenRequest.then(repsonse => repsonse.json().then(answer => {
+        tokenRequest.then(response => response.json().then(answer => {
             if (answer.error) {
-                console.error(answer.error);
-                navigateTo("/error?redirect-uri=/login");
+                handleLoginError("Spotify Authorization error: " + JSON.stringify(answer));
                 return;
             }
             
             localStorage.setItem('auth-token', answer.access_token);
-            localStorage.setItem('refresh-token', answer.refresh_token);
-            localStorage.setItem('auth-token-expiration-timestamp', (answer.expires_in * 1000 + Date.now()).toString());
+            setTimeout(() => refreshAccessToken(answer.refresh_token), (answer.expires_in - 10) * 1000);
             navigateTo('/home');
         }));
-    
-        tokenRequest.catch(error => {
-            console.error(error);
-            navigateTo("/error?redirect-uri=/login");
-        });
-    
+        tokenRequest.catch(error => handleLoginError(error));
         tokenRequest.finally(() => {
             localStorage.removeItem("code-verifier");
             localStorage.removeItem("auth-state");
         });
+    }
+
+    function refreshAccessToken(refreshToken: string) {
+        localStorage.removeItem("auth-token");
+
+        const grant = {
+            grant_type: "refresh_token",
+            refresh_token: refreshToken,
+            client_id: "20aa48c2719e42c0be5f3b834942f06d",
+        };
+        const tokenRequest = fetch("https://accounts.spotify.com/api/token", {
+            method: "POST",
+            body: new URLSearchParams(grant),
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        });
+
+        tokenRequest.then(response => response.json().then(answer => {
+            if (answer.error) {
+                handleLoginError("Spotify Authorization error: " + JSON.stringify(answer));
+                return;
+            }
+            
+            localStorage.setItem('auth-token', answer.access_token);
+            setTimeout(() => refreshAccessToken(answer.refresh_token), (answer.expires_in - 10) * 1000);
+        }));
+        tokenRequest.catch(error => handleLoginError(error));
     }
 
     function handleLoginError(msg: string) {
