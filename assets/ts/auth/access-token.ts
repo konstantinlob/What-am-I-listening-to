@@ -1,3 +1,5 @@
+import { navigateTo } from "#imports";
+
 export function tradeCodeForToken() {
     // login() only returns a code challenge. This function turns the code challenge into an auth-token
     const params = new URLSearchParams(window.location.search);
@@ -51,7 +53,6 @@ export function refreshAccessToken() {
         navigateTo("/login");
         return;
     }
-    localStorage.removeItem("auth-token");
 
     const grant = {
         grant_type: "refresh_token",
@@ -78,6 +79,8 @@ export function refreshAccessToken() {
         setTimeout(() => refreshAccessToken(), (answer.expires_in - 100) * 1000);
     }));
     tokenRequest.catch(error  => {
+        localStorage.removeItem("auth-token");
+        localStorage.removeItem("refresh-token");
         console.warn("access Token refresh failed (network error): " + error);
         navigateTo("/login");
     });
