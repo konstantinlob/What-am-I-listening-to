@@ -1,6 +1,10 @@
 <script lang="ts" setup>
     import pkceChallenge from 'pkce-challenge';
 
+    if (localStorage.getItem("auth-token") !== null) {
+        navigateTo("/home");
+    }
+
     const client_id = "20aa48c2719e42c0be5f3b834942f06d";
     const scopes = [];  // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
 
