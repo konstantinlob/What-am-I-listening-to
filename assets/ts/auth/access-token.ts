@@ -33,10 +33,10 @@ export function tradeCodeForToken() {
             return;
         }
         
-        localStorage.setItem('auth-token', answer.access_token);
-        localStorage.setItem('refresh-token', answer.refresh_token);
+        localStorage.setItem("auth-token", answer.access_token);
+        localStorage.setItem("refresh-token", answer.refresh_token);
         setTimeout(() => refreshAccessToken(), (answer.expires_in - 100) * 1000);
-        navigateTo('/home');
+        navigateTo("/home");
     }));
     tokenRequest.catch(error => handleLoginError(error));
     tokenRequest.finally(() => {
@@ -73,8 +73,8 @@ export function refreshAccessToken() {
             return;
         }
         
-        localStorage.setItem('auth-token', answer.access_token);
-        localStorage.setItem('refresh-token', answer.refresh_token);
+        localStorage.setItem("auth-token", answer.access_token);
+        localStorage.setItem("refresh-token", answer.refresh_token);
         setTimeout(() => refreshAccessToken(), (answer.expires_in - 100) * 1000);
     }));
     tokenRequest.catch(error  => {
