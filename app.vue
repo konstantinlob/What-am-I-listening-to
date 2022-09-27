@@ -1,11 +1,10 @@
 <template>
-  <main class="bg-spotify-black h-screen w-screen">
+  <main class="bg-spotify-black h-screen w-screen text-white">
     <NuxtPage />
   </main>
 </template>
 
-<style>
-body {
-  @apply text-white
-}
-</style>
+<script>
+  import { refreshAccessToken } from './assets/ts/auth';
+  refreshAccessToken();
+</script>
