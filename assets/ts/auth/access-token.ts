@@ -1,10 +1,10 @@
 import { navigateTo } from "#imports";
 
-export function tradeCodeForToken(codeChallenge: string, redirectUrl: URL) {
+export function tradeCodeForToken(code: string, redirectUrl: URL) {
     // login() only returns a code challenge. This function turns the code challenge into an auth-token
     const grant = {
         grant_type: "authorization_code",
-        code: codeChallenge,
+        code: code,
         redirect_uri: redirectUrl.toString(), // required, but not used for redirect
         client_id: "20aa48c2719e42c0be5f3b834942f06d",
         code_verifier: localStorage.getItem('code-verifier'),
