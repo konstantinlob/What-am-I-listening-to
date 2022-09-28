@@ -22,19 +22,15 @@
     var data;
     var error;
 
-    if(!auth_token){
-        navigateTo('/login');
-    }else{
-        const response = await fetch('https://api.spotify.com/v1/me', {
-            headers: {
-                'Authorization': `Bearer ${auth_token}`,
-            }
-        });
-        if(!response.ok){
-            error = await response.text();
+    const response = await fetch('https://api.spotify.com/v1/me', {
+        headers: {
+            'Authorization': `Bearer ${auth_token}`,
         }
-        else{
-            data = await response.json();
-        }
+    });
+    if(!response.ok){
+        error = await response.text();
+    }
+    else{
+        data = await response.json();
     }
 </script>
