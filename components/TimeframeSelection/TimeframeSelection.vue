@@ -28,7 +28,7 @@
         Year,
         AllTime,
     }
-    const activeTimeframe = ref(Timeframe.Year);
+    const activeTimeframe = useState<Timeframe>("activeTimeframe", () => Timeframe.Year);
 </script>
 
 <style scoped>
