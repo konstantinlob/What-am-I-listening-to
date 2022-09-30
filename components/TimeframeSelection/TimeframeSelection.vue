@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full flex justify-between font-bold px-5 py-2">
+    <div class="w-full flex justify-around font-bold px-5 py-2">
         <span 
             class="cursor-pointer relative hidden-green-underline hover:text-spotify-green transition-colors" 
             :class="[activeTimeframe === Timeframe.Month ? 'before:w-full !text-white' : 'before:w-0']"
