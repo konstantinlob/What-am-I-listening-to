@@ -8,7 +8,11 @@ module.exports = {
     "./plugins/**/*.{js,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+        'width': 'width',
+      }
+    },
     colors: {
       "white": "#FFFFFF",
       "spotify-green": "#1DB954",
