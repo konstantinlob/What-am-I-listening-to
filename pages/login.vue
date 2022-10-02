@@ -6,7 +6,22 @@
     }
 
     const client_id = "20aa48c2719e42c0be5f3b834942f06d";
-    const scopes = [];  // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
+    // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
+    const scopes = [
+        // 'user-read-playback-state',
+        // 'user-modify-playback-state',
+        // 'user-read-currently-playing',
+        // 'app-remote-control',
+        // 'streaming',
+        // 'playlist-read-private',
+        // 'playlist-read-collaborative',
+        // 'user-follow-read',
+        // 'user-read-playback-position',
+        // 'user-top-read',
+        // 'user-read-recently-played',
+        // 'user-library-read',
+        // 'user-read-private',
+    ];
 
     function generateRamdomHexString(len: number = 15): string {
         var arr = new Uint8Array(len / 2);

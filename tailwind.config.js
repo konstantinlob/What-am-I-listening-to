@@ -18,6 +18,9 @@ module.exports = {
           "100%": {opacity: 1}
         }
       })
+      transitionProperty: {
+        'width': 'width',
+      }
     },
     colors: {
       gray: "#4F4F4F",
