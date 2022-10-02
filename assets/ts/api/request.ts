@@ -29,9 +29,15 @@ export async function request<dataType>({endpoint, query, body, method, headers}
         },
         body: body ? JSON.stringify(body) : undefined,
     }).then(response => {
-        if(!response.ok){
-            throw Error(`${endpoint} failed with ${response.status}`)
-        }
+        // if(!response.ok){
+        //     response.json().then(data => console.error(data))
+        //     throw Error(`${endpoint} failed with ${response.status}`)
+        // }
         return response.json()
+    }).then((data) => {
+        if(data.error){
+            throw data.error;
+        }
+        return data;
     })
 }

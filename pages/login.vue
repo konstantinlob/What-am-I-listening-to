@@ -6,7 +6,22 @@
     }
 
     const client_id = "20aa48c2719e42c0be5f3b834942f06d";
-    const scopes = [];  // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
+    // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
+    const scopes = [
+        'user-read-playback-state',
+        'user-modify-playback-state',
+        'user-read-currently-playing',
+        // 'app-remote-control',
+        // 'streaming',
+        // 'playlist-read-private',
+        // 'playlist-read-collaborative',
+        // 'user-follow-read',
+        // 'user-read-playback-position',
+        // 'user-top-read',
+        // 'user-read-recently-played',
+        // 'user-library-read',
+        'user-read-private',  // needed to check if account is free or premium
+    ];
 
     function generateRamdomHexString(len: number = 15): string {
         var arr = new Uint8Array(len / 2);
@@ -29,7 +44,7 @@
         url.searchParams.append('client_id', client_id);
         url.searchParams.append('response_type', 'code');
         url.searchParams.append('redirect_uri', redirect_uri.toString());
-        url.searchParams.append('scopes', scopes.join(" "));
+        url.searchParams.append('scope', scopes.join(" "));
         url.searchParams.append('state', state);
         url.searchParams.append('code_challenge_method', 'S256');
         url.searchParams.append('code_challenge', pkce.code_challenge);
