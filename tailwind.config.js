@@ -8,7 +8,17 @@ module.exports = {
     "./plugins/**/*.{js,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'fade-in': "fadeIn 1s ease-in-out forwards"
+      },
+      keyframes: (theme) => ({
+        fadeIn: {
+          "0%": { opacity: 0},
+          "100%": {opacity: 1}
+        }
+      })
+    },
     colors: {
       gray: "#4F4F4F",
       "white": "#FFFFFF",
