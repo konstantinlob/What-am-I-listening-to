@@ -15,7 +15,7 @@
                         </p>
                     </div>
                     <div class="my-auto w-24 text-center self-center">
-                        <div v-if="me.product === 'premium' || true" class="flex align-baseline justify-evenly">
+                        <div v-if="me.product === 'premium'" class="flex align-baseline justify-evenly">
                             <button @click="skipToPrevious()">⏮</button>
                             <button @click="playOrPause()">⏯</button>
                             <button @click="skipToNext()">⏭</button>
