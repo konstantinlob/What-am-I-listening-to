@@ -20,13 +20,13 @@ npm start
 
 ## Production
 
-Build the application for production:
+Make a build if the application for production:
 
 ```bash
 npm run build
 ```
 
-Deploy the Website to github-pages
+Deploy the build to to github-pages
 
 ```bash
 npm run deploy
