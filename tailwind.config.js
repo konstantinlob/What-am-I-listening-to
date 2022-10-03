@@ -23,7 +23,7 @@ module.exports = {
       }
     },
     colors: {
-      gray: "#4F4F4F",
+      "gray": "#4F4F4F",
       "white": "#FFFFFF",
       "spotify-green": "#1DB954",
       "purple": "#6D3CB4",
