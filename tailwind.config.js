@@ -14,6 +14,7 @@ module.exports = {
       "spotify-green": "#1DB954",
       "purple": "#6D3CB4",
       "spotify-black": "#191414",
+      "gray": "#B3B3B3",
     },
     borderRadius: {
       "lg": "20px",
