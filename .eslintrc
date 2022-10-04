@@ -22,7 +22,8 @@
         "alignAttributesVertically": true,
         "ignores": []
       }],
-      "vue/singleline-html-element-content-newline": "off"
+      "vue/singleline-html-element-content-newline": "off",
+      "no-console": ["warn", {"allow": ["warn", "error"]}]
   },
   "overrides": [
     {
