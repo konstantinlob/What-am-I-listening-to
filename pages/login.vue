@@ -1,7 +1,7 @@
 <script lang="ts" setup>
     import pkceChallenge from "pkce-challenge";
     import GithubBlack from "~/assets/svg/Github_Logo_Black.svg?component"
-    import SpotifyWhite from "~/assets/svg/Spotify_Logo_White.svg"
+    import SpotifyWhite from "~/assets/svg/Spotify_Logo_White.svg?component"
 
     if (localStorage.getItem("auth-token") !== null) {
         navigateTo("/home");
