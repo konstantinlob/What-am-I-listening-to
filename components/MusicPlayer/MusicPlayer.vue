@@ -43,7 +43,7 @@
 
 <script lang="ts" setup>
     import { request } from '~/assets/ts/api';
-    import { PlaybackState, Me } from './types';
+    import { PlaybackState, Me } from '~/assets/types/player';
 
     let playbackState = useState<PlaybackState>();
     let error = useState<any>();
