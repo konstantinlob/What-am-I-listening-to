@@ -4,7 +4,7 @@
             <div v-if="playbackState.item">
                 <div class="flex h-16 justify-start">
                     <div class="h-full p-1">
-                        <img class="max-h-full" :src="playbackState.item.album.images[0]?.url" alt="" />
+                        <img class="max-h-full" :src="playbackState.item.album.images[0]?.url" alt="">
                     </div>
                     <div class="my-auto">
                         <p class="text-white">
@@ -25,10 +25,12 @@
                 </div>
                 <!-- progress bar -->
                 <div class="h-1 relative">
-                    <div class="absolute bg-gray h-full w-full"></div>
-                    <div class="absolute bg-white h-full"
-                        :style="{width: `${playbackState.progress_ms / playbackState.item.duration_ms * 100}%`}">
-                    </div>
+                    <div class="absolute bg-gray h-full w-full" />
+                    <div
+                        v-if="playbackState.progress_ms !== null"
+                        class="absolute bg-white h-full"
+                        :style="{width: `${playbackState.progress_ms / playbackState.item.duration_ms * 100}%`}"
+                    />
                 </div>
             </div>
             <div v-else class="text-center h-16">
@@ -42,46 +44,46 @@
 </template>
 
 <script lang="ts" setup>
-    import { request } from '~/assets/ts/api';
-    import { PlaybackState, Me } from '~/assets/types/player';
+    import { request } from "~/assets/ts/api";
+    import { PlaybackState, Me } from "~/assets/types/player";
 
-    let playbackState = useState<PlaybackState>();
-    let error = useState<any>();
-    let me = await request<Me>({
-        endpoint: '/me',
-    }).catch(e => error.value = e);
-    let refetchId = useState<NodeJS.Timeout>();
+    const playbackState = useState<PlaybackState>();
+    const error = useState<any>();
+    const me = await request<Me>({
+        endpoint: "/me",
+    });
+    const refetchId = useState<NodeJS.Timeout | null>();
 
     fetchPlaybackState();
 
-    function mstime2string(ms: number){
-        if(typeof ms !== 'number'){
+    function mstime2string(ms: number | null) {
+        if (ms === null) {
             return "~:~";
         }
-        let seconds = Math.floor(ms / 1000);
-        let minutes = Math.floor(seconds / 60);
-        return `${minutes}:${(seconds % 60).toString().padStart(2, '0')}`;
+        const seconds = Math.floor(ms / 1000);
+        const minutes = Math.floor(seconds / 60);
+        return `${minutes}:${(seconds % 60).toString().padStart(2, "0")}`;
     }
 
     // data-fetch functions
 
     function fetchPlaybackState() {
-        if(refetchId.value){
+        if (refetchId.value) {
             clearTimeout(refetchId.value);
         }
         refetchId.value = null;
         request<PlaybackState>({
-            endpoint: '/me/player',
+            endpoint: "/me/player",
             query: {
-                additional_types: 'track',
+                additional_types: "track",
                 market: me.country,
-            }
-        }).then(data => {
+            },
+        }).then((data) => {
             playbackState.value = data;
-        }).catch(error => {
-            console.error(error)
+        }).catch((error) => {
+            console.error(error);
         }).finally(() => {
-            refetchId.value = setTimeout(() => fetchPlaybackState(), 500);  // delay needs maybe to be adjusted (eg 500)
+            refetchId.value = setTimeout(() => fetchPlaybackState(), 500); // delay needs maybe to be adjusted (eg 500)
         });
     }
 
@@ -89,44 +91,44 @@
 
     function skipToPrevious() {
         request({
-            endpoint: '/me/player/previous',
-            method: 'POST',
-        }).catch(error => {
+            endpoint: "/me/player/previous",
+            method: "POST",
+        }).catch((error) => {
             alert(error.message);
         });
     }
 
     function playOrPause() {
-        if(!playbackState.value.is_playing){
+        if (!playbackState.value.is_playing) {
             // start/resume
             request({
-                endpoint: '/me/player/play',
-                method: 'PUT',
+                endpoint: "/me/player/play",
+                method: "PUT",
                 query: {
                     device_id: playbackState.value.device.id,
-                }
-            }).catch(error => {
+                },
+            }).catch((error) => {
                 alert(error.message);
             });
         } else {
             // stop/pause
             request({
-                endpoint: '/me/player/pause',
-                method: 'PUT',
+                endpoint: "/me/player/pause",
+                method: "PUT",
                 query: {
                     device_id: playbackState.value.device.id,
-                }
-            }).catch(error => {
+                },
+            }).catch((error) => {
                 alert(error.message);
             });
         }
     }
 
-    function skipToNext(){
+    function skipToNext() {
         request({
-            endpoint: '/me/player/next',
-            method: 'POST'
-        }).catch(error => {
+            endpoint: "/me/player/next",
+            method: "POST",
+        }).catch((error) => {
             alert(error.message);
         });
     }

@@ -8,9 +8,9 @@
     const clientId = "20aa48c2719e42c0be5f3b834942f06d";
     // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
     const scopes: string[] = [
-        'user-read-playback-state',
-        'user-modify-playback-state',
-        'user-read-currently-playing',
+        "user-read-playback-state",
+        "user-modify-playback-state",
+        "user-read-currently-playing",
         // 'app-remote-control',
         // 'streaming',
         // 'playlist-read-private',
@@ -20,7 +20,7 @@
         // 'user-top-read',
         // 'user-read-recently-played',
         // 'user-library-read',
-        'user-read-private',  // needed to check if account is free or premium
+        "user-read-private", // needed to check if account is free or premium
     ];
 
     function generateRamdomHexString(len: number = 15): string {

@@ -5,13 +5,13 @@ export interface PlaybackState {
         is_private_session: boolean,
         is_restricted: boolean,
         name: string,
-        type: 'computer' | 'computer' | 'speaker',
+        type: "computer" | "computer" | "speaker",
         volume_percent: number
     },
-    repeat_state: 'off' | 'track' | 'context',
-    shuffle_state: 'on' | 'off',
+    repeat_state: "off" | "track" | "context",
+    shuffle_state: "on" | "off",
     context: {
-        type: 'artist' | 'playlist' | 'album' | 'show',
+        type: "artist" | "playlist" | "album" | "show",
         href: string,
         external_url: {
             spotify: string
@@ -23,7 +23,7 @@ export interface PlaybackState {
     is_playing: boolean,
     item?: {
         album: {
-            album_type: 'album' | 'single' | 'compilation',
+            album_type: "album" | "single" | "compilation",
             total_tracks: number,
             available_markes: [string],
             external_urls: {
@@ -43,13 +43,13 @@ export interface PlaybackState {
             }],
             name: string,
             release_date: string,
-            release_date_precision: 'year' | 'month' | 'day',
+            release_date_precision: "year" | "month" | "day",
             restrictions: {
-                reason: 'market' | 'product' | 'explicit'
+                reason: "market" | "product" | "explicit"
             },
-            type: 'album',
+            type: "album",
             uri: string,
-            album_group: 'album' | 'single' | 'compilation' | 'appears_on',
+            album_group: "album" | "single" | "compilation" | "appears_on",
             artists: [{
                 external_urls: {
                     spotify: string
@@ -57,7 +57,7 @@ export interface PlaybackState {
                 href: string,
                 id: string,
                 name: string,
-                type: 'artist',
+                type: "artist",
                 uri: string
             }]
         },
@@ -79,7 +79,7 @@ export interface PlaybackState {
             }],
             name: string,
             popularity: number,
-            type: 'artist',
+            type: "artist",
             uri: string
         }],
         available_markets: [string],
@@ -97,11 +97,11 @@ export interface PlaybackState {
         popularity: number,
         preview_url: string,
         track_number: number,
-        type: 'track',
+        type: "track",
         uri: string,
         is_local: boolean
     },
-    currently_playing: 'track' | 'episode' | 'ad' | 'unknown',
+    currently_playing: "track" | "episode" | "ad" | "unknown",
     actions: {
         interrupting_playback?: boolean,
         pausing?: boolean,
@@ -115,7 +115,6 @@ export interface PlaybackState {
         transferring_playback?: boolean
     }
 }
-
 
 export interface Me {
     country: string,
@@ -139,7 +138,7 @@ export interface Me {
         height: number,
         width: number,
     }],
-    product: 'premium' | 'free',
-    type: 'user',
+    product: "premium" | "free",
+    type: "user",
     uri: string,
 }
