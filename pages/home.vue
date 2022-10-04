@@ -1,3 +1,3 @@
 <template>
-    <TimeframeSelection/>
+    <TimeframeSelection />
 </template>
