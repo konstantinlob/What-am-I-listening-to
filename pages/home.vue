@@ -1,5 +1,5 @@
 <template>
-    <TimeframeSelection/>
+    <TimeframeSelection />
     <div class="flex justify-center items-center h-[80vh] w-full p-5">
         <transition name="statistics" mode="out-in">
             <StatisticsPurplePlaceholder v-if="currentSlide === 0" @click="nextSlide()" />
@@ -8,17 +8,16 @@
     </div>
 </template>
 
-
 <script lang="ts" setup>
-const componentCount = 2;
-const currentSlide = useState<number>("currentSlide", () => 0);
+    const componentCount = 2;
+    const currentSlide = useState<number>("currentSlide", () => 0);
 
-const nextSlide = () => {
-    currentSlide.value++;
-    if (currentSlide.value >= componentCount) {
-        currentSlide.value = 0;
-    }
-}
+    const nextSlide = () => {
+        currentSlide.value++;
+        if (currentSlide.value >= componentCount) {
+            currentSlide.value = 0;
+        }
+    };
 </script>
 
 <style scoped>
@@ -32,7 +31,7 @@ const nextSlide = () => {
   @apply -translate-x-full opacity-0 -rotate-12 scale-75;
 }
 
-.statistics-enter-active, 
+.statistics-enter-active,
 .statistics-leave-active{
   @apply transform transition ease-in-out duration-500;
 }

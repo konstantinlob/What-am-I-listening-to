@@ -1,7 +1,7 @@
 <template>
     <div class="w-full flex justify-around font-bold pt-6 pb-2">
-        <span 
-            class="cursor-pointer relative hidden-green-underline hover:text-spotify-green transition-colors" 
+        <span
+            class="cursor-pointer relative hidden-green-underline hover:text-spotify-green transition-colors"
             :class="[activeTimeframe === Timeframe.Month ? 'before:w-full !text-white' : 'before:w-0']"
             @click="activeTimeframe = Timeframe.Month"
         >
