@@ -2,27 +2,32 @@ import { navigateTo } from "#imports";
 
 export function tradeCodeForToken(code: string, redirectUrl: URL) {
     // login() only returns a code challenge. This function turns the code challenge into an auth-token
+
+    const codeVerifier = localStorage.getItem("code-verifier");
+    if (codeVerifier === null) {
+        throw new Error("missing code-verifier for fetching access token");
+    }
     const grant = {
         grant_type: "authorization_code",
-        code: code,
+        code,
         redirect_uri: redirectUrl.toString(), // required, but not used for redirect
         client_id: "20aa48c2719e42c0be5f3b834942f06d",
-        code_verifier: localStorage.getItem('code-verifier'),
+        code_verifier: codeVerifier,
     };
     const tokenRequest = fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
-        body: new URLSearchParams(grant),
+        body: new URLSearchParams(Object.entries(grant)).toString(),
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-        }
+        },
     });
 
-    tokenRequest.then(response => response.json().then(answer => {
+    tokenRequest.then(response => response.json().then((answer) => {
         if (answer.error) {
             handleLoginError("Spotify Authorization error: " + JSON.stringify(answer));
             return;
         }
-        
+
         localStorage.setItem("auth-token", answer.access_token);
         localStorage.setItem("refresh-token", answer.refresh_token);
         setTimeout(() => refreshAccessToken(), (answer.expires_in - 100) * 1000);
@@ -52,21 +57,21 @@ export function refreshAccessToken() {
         body: new URLSearchParams(grant),
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-        }
+        },
     });
 
-    tokenRequest.then(response => response.json().then(answer => {
+    tokenRequest.then(response => response.json().then((answer) => {
         if (answer.error) {
             console.warn("access Token refresh failed: " + JSON.stringify(answer));
             navigateTo("/login");
             return;
         }
-        
+
         localStorage.setItem("auth-token", answer.access_token);
         localStorage.setItem("refresh-token", answer.refresh_token);
         setTimeout(() => refreshAccessToken(), (answer.expires_in - 100) * 1000);
     }));
-    tokenRequest.catch(error  => {
+    tokenRequest.catch((error) => {
         localStorage.removeItem("auth-token");
         localStorage.removeItem("refresh-token");
         console.warn("access Token refresh failed (network error): " + error);
