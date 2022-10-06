@@ -63,7 +63,7 @@
             </div>
             <div class="flex flex-col items-center">
                 <button class="bg-spotify-green px-8 py-4 h-min rounded-lg flex flex-row items-center font-bold" @click="login()">
-                    <SpotifyWhite class="h-10 w-full"/>
+                    <SpotifyWhite class="h-10 w-auto"/>
                     <span class="pl-2 text-[25px]">login</span>
                 </button>
                 <span class="flex items-center">Secured by OAuth2.0</span>
@@ -71,7 +71,7 @@
         </div>
         <div class="flex flex-col items-center">
             <a href="https://github.com/konstantinlob/What-am-I-listening-to" class="bg-purple px-4 py-2 h-min rounded-lg flex flex-row items-center font-bold" target="_blank">
-                <img src="~/assets/svg/Github_Logo_Black.svg" alt="GitHub Logo" class="h-8"/>
+                <GithubBlack class="h-8 w-auto"/>
                 <span class="pl-2 text-[20px]">GitHub repo</span>
             </a>
             <span class="text-center w-full">Developled by <br/> Benjamin Tallarek, Julius Jänchen, Konstantin Lobmayr, Pascal Heyn, Robin Walter</span>
