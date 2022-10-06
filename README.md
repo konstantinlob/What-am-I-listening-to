@@ -20,7 +20,7 @@ npm start
 
 ## Production
 
-Make a build if the application for production:
+Build the application for production:
 
 ```bash
 npm run build
