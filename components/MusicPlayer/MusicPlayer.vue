@@ -4,7 +4,7 @@
             <div v-if="playbackState.item">
                 <div class="flex h-16 justify-start">
                     <div class="h-full p-1">
-                        <img class="max-h-full" :src="playbackState.item.album.images[0]?.url" alt="">
+                        <img class="max-h-full" :src="playbackState.item.album.images[0]?.url" alt="Album Cover">
                     </div>
                     <div class="my-auto">
                         <p class="text-white">
