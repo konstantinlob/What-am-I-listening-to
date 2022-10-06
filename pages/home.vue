@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts" setup>
-    import MusicPlayer from "~~/components/MusicPlayer/MusicPlayer.vue";
     const componentCount = 2;
     const currentSlide = useState<number>("currentSlide", () => 0);
 
