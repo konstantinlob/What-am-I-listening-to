@@ -70,11 +70,11 @@
             </div>
         </div>
         <div class="flex flex-col items-center">
-            <button class="bg-purple px-4 py-2 h-min rounded-lg flex flex-row items-center font-bold">
+            <a href="https://github.com/konstantinlob/What-am-I-listening-to" class="bg-purple px-4 py-2 h-min rounded-lg flex flex-row items-center font-bold" target="_blank">
                 <GithubBlack class="h-8 w-auto"/>
                 <span class="pl-2 text-[20px]">GitHub repo</span>
-            </button>
-            <span class="text-center w-full">Developled by <br> Benjamin Tallarek, Julius Jänchen, Konstantin Lobmayr, Pascal Heyn, Robin Walter</span>
+            </a>
+            <span class="text-center w-full">Developled by <br/> Benjamin Tallarek, Julius Jänchen, Konstantin Lobmayr, Pascal Heyn, Robin Walter</span>
         </div>
     </div>
 </template>
