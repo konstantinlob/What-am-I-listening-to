@@ -58,7 +58,7 @@ export interface PlaybackState {
                 id: string,
                 name: string,
                 type: "artist",
-                uri: string
+                uri: string,
             }]
         },
         artists: [{
@@ -80,7 +80,7 @@ export interface PlaybackState {
             name: string,
             popularity: number,
             type: "artist",
-            uri: string
+            uri: string,
         }],
         available_markets: [string],
         disc_number: number,
@@ -114,31 +114,4 @@ export interface PlaybackState {
         toggling_repeat_track?: boolean,
         transferring_playback?: boolean
     }
-}
-
-export interface Me {
-    country: string,
-    display_name: string,
-    email: string,
-    explicit_content: {
-        filter_enabled: boolean,
-        filter_locked: boolean,
-    },
-    external_urls: {
-        spotify: string,
-    },
-    followers: {
-        href: string,
-        total: number
-    },
-    href: string,
-    id: string,
-    images: [{
-        url: string,
-        height: number,
-        width: number,
-    }],
-    product: "premium" | "free",
-    type: "user",
-    uri: string,
 }
