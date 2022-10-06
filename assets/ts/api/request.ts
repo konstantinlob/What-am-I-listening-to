@@ -14,9 +14,7 @@ export function request<dataType>({ endpoint, query, body, method, headers }: re
 
     const url = new URL(`https://api.spotify.com/v1${endpoint}`);
     if (query) {
-        for (const [key, value] of Object.entries(query)) {
-            url.searchParams.append(key, value);
-        }
+        Object.entries(query).forEach(([key, value]) => url.searchParams.append(key, value));        
     }
 
     return fetch(url, {
