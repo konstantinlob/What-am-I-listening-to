@@ -37,9 +37,6 @@
                 Ad is playing
             </div>
         </div>
-        <div v-if="error">
-            Miniplayer failed: {{ error.message }}
-        </div>
     </div>
 </template>
 
@@ -48,11 +45,9 @@
     import { PlaybackState, Me } from "~/assets/types/player";
 
     const playbackState = useState<PlaybackState>();
-    const error = useState<any>();
     const me = await request<Me>({
         endpoint: "/me",
     });
-    const refetchId = useState<NodeJS.Timeout | null>();
 
     fetchPlaybackState();
 
@@ -68,10 +63,6 @@
     // data-fetch functions
 
     function fetchPlaybackState() {
-        if (refetchId.value) {
-            clearTimeout(refetchId.value);
-        }
-        refetchId.value = null;
         request<PlaybackState>({
             endpoint: "/me/player",
             query: {
@@ -83,7 +74,7 @@
         }).catch((error) => {
             console.error(error);
         }).finally(() => {
-            refetchId.value = setTimeout(() => fetchPlaybackState(), 500); // delay needs maybe to be adjusted (eg 500)
+            setTimeout(() => fetchPlaybackState(), 500); // delay needs maybe to be adjusted
         });
     }
 
