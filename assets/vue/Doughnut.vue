@@ -1,8 +1,5 @@
 <template>
-    <Doughnut
-        :chart-data="chartData"
-        :chart-options="chartOptions"
-    />
+    <Doughnut :chart-data="chartData" :chart-options="chartOptions" />
 </template>
 
 <script lang="ts" setup>
@@ -15,6 +12,7 @@
         datasets: [
             {
                 backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"],
+                borderColor: "#191414",
                 data: [40, 20, 80, 10],
             },
         ],
