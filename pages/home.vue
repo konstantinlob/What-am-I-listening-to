@@ -3,15 +3,16 @@
         <TimeframeSelection />
         <div class="flex justify-center items-center h-[80vh] w-full p-5">
             <transition name="statistics" mode="out-in">
-                <StatisticsPurplePlaceholder v-if="currentSlide === 0" @click="nextSlide()" />
-                <StatisticsGreenPlaceholder v-else-if="currentSlide === 1" @click="nextSlide()" />
+                <StatisticsIceberg v-if="currentSlide === 0" @click="nextSlide()" />
+                <!-- <StatisticsPurplePlaceholder v-else-if="currentSlide === 1" @click="nextSlide()" />
+                <StatisticsGreenPlaceholder v-else-if="currentSlide === 2" @click="nextSlide()" /> -->
             </transition>
         </div>
     </section>
 </template>
 
 <script lang="ts" setup>
-    const componentCount = 2;
+    const componentCount = 1;
     const currentSlide = useState<number>("currentSlide", () => 0);
 
     const nextSlide = () => {
