@@ -8,29 +8,28 @@
             <p>{{ error }}</p>
         </div>
         <div v-else>
-            <br/>
+            <br>
             <p>You are logged in as {{ data?.display_name }}</p>
-            <br/>
+            <br>
             <p>{{ JSON.stringify(data) }}</p>
         </div>
     </div>
 </template>
 
 <script setup>
-    const auth_token = localStorage.getItem('auth-token');
+    const authToken = localStorage.getItem("auth-token");
 
-    var data;
-    var error;
+    let data;
+    let error;
 
-    const response = await fetch('https://api.spotify.com/v1/me', {
+    const response = await fetch("https://api.spotify.com/v1/me", {
         headers: {
-            'Authorization': `Bearer ${auth_token}`,
-        }
+            Authorization: `Bearer ${authToken}`,
+        },
     });
-    if(!response.ok){
+    if (!response.ok) {
         error = await response.text();
-    }
-    else{
+    } else {
         data = await response.json();
     }
 </script>

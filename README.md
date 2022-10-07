@@ -7,16 +7,15 @@ Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
 Make sure to install the dependencies:
 
 ```bash
-# yarn
-yarn install
+npm install
 ```
 
 ## Development Server
 
-Start the development server on http://localhost:3000
+Start the development server on http://localhost:3000/What-am-I-listening-to
 
 ```bash
-yarn run dev
+npm start
 ```
 
 ## Production
@@ -24,13 +23,13 @@ yarn run dev
 Build the application for production:
 
 ```bash
-yarn run build
+npm run build
 ```
 
-Locally preview production build:
+Deploy the build to to github-pages
 
 ```bash
-yarn run preview
+npm run deploy
 ```
 
 Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
