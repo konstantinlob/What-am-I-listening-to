@@ -31,9 +31,9 @@
                     <button class="bg-gray p-3 rounded-full" @click="previousStep">
                         <ArrowRight class="rotate-180 transform w-6 aspect-square" />
                     </button>
-                    <button class="bg-spotify-green w-full py-4 rounded-full font-bold text-base inline-flex items-center justify-center gap-[0.875rem]" @click="routeToExploration">
+                    <NuxtLink to="/login" class="bg-spotify-green w-full py-4 rounded-full font-bold text-base inline-flex items-center justify-center gap-[0.875rem]">
                         Explore your taste
-                    </button>
+                    </NuxtLink>
                 </div>
             </div>
         </transition>
@@ -53,10 +53,6 @@
     const nextStep = () => {
         transition.value = "slide-next";
         step.value++;
-    };
-
-    const routeToExploration = () => {
-        // route to wherever the screen should route to. :)
     };
 </script>
 
