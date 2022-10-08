@@ -7,7 +7,6 @@
                 <StatisticsGreenPlaceholder v-else-if="currentSlide === 1" @click="nextSlide()" />
             </transition>
         </div>
-        <MusicPlayer />
     </section>
 </template>
 

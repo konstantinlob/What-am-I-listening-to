@@ -26,7 +26,10 @@ export function request<dataType>({ endpoint, query, body, method, headers }: re
         },
         body: body ? JSON.stringify(body) : undefined,
     }).then((response) => {
-        return response.json();
+        if (response.ok) {
+            return response.json();
+        }
+        return response.text();
     }).then<dataType>((data) => {
         if (data.error) {
             // throw for .catch
