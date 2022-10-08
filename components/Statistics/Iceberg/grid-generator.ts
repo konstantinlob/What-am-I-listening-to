@@ -1,5 +1,25 @@
-import { StyleValue } from "nuxt/dist/app/compat/capi";
+import { CSSProperties } from "nuxt/dist/app/compat/capi";
 
+class Square {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+
+    // x and y are in percent (0-100)
+    constructor(x: number, y: number, size: number) {
+        this.left = x;
+        this.right = x + size;
+        this.top = y + size;
+        this.bottom = y;
+    }
+
+    overlaps(other: Square): boolean {
+        const isWithinX = this.left <= other.right && this.right >= other.left;
+        const isWithinY = this.top >= other.bottom && this.bottom <= other.top;
+        return isWithinX && isWithinY;
+    }
+}
 
 export default class GridGenerator {
     size: number;
@@ -10,7 +30,7 @@ export default class GridGenerator {
         this.squares = [];
     }
 
-    getNext(y: number): StyleValue {
+    getNext(y: number): CSSProperties {
         const percentOptions = [...Array(100 - this.size).keys()];
 
         let x: number | null = null;
@@ -44,26 +64,5 @@ export default class GridGenerator {
             if (squareB.overlaps(squareA)) { return false; }
         }
         return true;
-    }
-}
-
-class Square {
-    top: number;
-    right: number;
-    bottom: number;
-    left: number;
-
-    // x and y are in percent (0-100)
-    constructor(x: number, y: number, size: number) {
-        this.left = x;
-        this.right = x + size;
-        this.top = y + size;
-        this.bottom = y;
-    }
-
-    overlaps(other: Square): boolean {
-        const isWithinX = this.left <= other.right && this.right >= other.left;
-        const isWithinY = this.top >= other.bottom && this.bottom <= other.top;
-        return isWithinX && isWithinY;
     }
 }
