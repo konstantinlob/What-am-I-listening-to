@@ -3,7 +3,7 @@
         <TimeframeSelection />
         <div class="flex justify-center items-center h-[80vh] w-full p-5">
             <transition name="statistics" mode="out-in">
-                <StatisticsIceberg v-if="currentSlide === 0" @click="nextSlide()" />
+                <StatisticsIcebergRecentlyPlayedTracks v-if="currentSlide === 0" @click="nextSlide()" />
                 <!-- <StatisticsPurplePlaceholder v-else-if="currentSlide === 1" @click="nextSlide()" />
                 <StatisticsGreenPlaceholder v-else-if="currentSlide === 2" @click="nextSlide()" /> -->
             </transition>
