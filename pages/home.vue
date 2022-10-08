@@ -4,15 +4,15 @@
         <div class="flex justify-center items-center h-[80vh] w-full p-5">
             <transition name="statistics" mode="out-in">
                 <StatisticsIcebergRecentlyPlayedTracks v-if="currentSlide === 0" @click="nextSlide()" />
-                <!-- <StatisticsPurplePlaceholder v-else-if="currentSlide === 1" @click="nextSlide()" />
-                <StatisticsGreenPlaceholder v-else-if="currentSlide === 2" @click="nextSlide()" /> -->
+                <StatisticsIcebergTopTracks v-else-if="currentSlide === 1" @click="nextSlide()" />
+                <StatisticsIcebergTopArtists v-else-if="currentSlide === 2" @click="nextSlide()" />
             </transition>
         </div>
     </section>
 </template>
 
 <script lang="ts" setup>
-    const componentCount = 1;
+    const componentCount = 3;
     const currentSlide = useState<number>("currentSlide", () => 0);
 
     const nextSlide = () => {

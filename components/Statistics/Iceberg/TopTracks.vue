@@ -1,26 +1,26 @@
 <script lang="ts" setup>
     import { request } from "~/assets/ts/api";
-    import { RecentlyPlayed } from "~/assets/ts/api/types/player";
+    import { TopTracks } from "~/assets/ts/api/types/me";
     import { Track } from "~/assets/ts/api/types/generell";
 
-    const recentlyPlayed: Track[] = [];
+    const topTracks: Track[] = [];
 
-    let url: string | null = "/me/player/recently-played";
+    let url: string | null = "/me/top/tracks";
 
     while (url != null) {
-        const data: RecentlyPlayed = await request<RecentlyPlayed>({
+        const data: TopTracks = await request<TopTracks>({
             endpoint: url,
             query: {
                 limit: 50,
             },
         });
-        recentlyPlayed.push(...data.items.map((v) => v.track));
+        topTracks.push(...data.items);
         url = data.next;
     }
 
     const trackIndex: {[name: string]: Track} = {};
 
-    for (const track of recentlyPlayed) {
+    for (const track of topTracks) {
         if (trackIndex[track.name] === undefined) {
             trackIndex[track.name] = track;
         }
@@ -31,7 +31,7 @@
 
 <template>
     <div class="w-full h-full">
-        <p>Recently Played Tracks</p>
+        <p>Top Tracks</p>
         <StatisticsIceberg
             :items="tracks.map((track) => ({
                 info: track.name,
