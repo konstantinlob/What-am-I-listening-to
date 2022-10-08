@@ -1,1 +1,1 @@
-export { RecentlyPlayed, Track, Album, Artist } from "./RecentlyPlayed";
+export { RecentlyPlayed } from "./RecentlyPlayed";
