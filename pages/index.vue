@@ -4,7 +4,7 @@
             localStorage.setItem('introduced', "true");
             navigateTo("/introduction");
         } else {
-            navigateTo("/login");
+            navigateTo("/introduction"); //TODO: change to login before merge, is just for testing purposes
         }
     } else {
         navigateTo("/home");

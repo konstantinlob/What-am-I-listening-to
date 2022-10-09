@@ -5,7 +5,7 @@
             :name="transition"
         >
             <div v-if="step === 0" class="pt-24 flex flex-col h-full justify-between opacity-0 animate-fade-in">
-                <h1 class="text-4xl leading-[2.75rem] max-w-[12ch] font-bold">Hi, <br>Welcome to what am I listening to.</h1>
+                <h1 class="text-4xl leading-[2.75rem] max-w-[12ch] font-bold">Hi, <br>Welcome to What am I listening to.</h1>
                 <button class="bg-spotify-black py-4 rounded-full font-bold text-base inline-flex items-center justify-center gap-[0.875rem]" @click="nextStep">
                     <span>Continue</span>
                     <ArrowRight class="w-4 aspect-square" />
@@ -25,7 +25,8 @@
             <div v-else-if="step === 2" class="mx-2 relative text-center grid place-content-center h-full">
                 <div>
                     <img src="../assets/images/step-2.png" class="rounded-lg max-h-[288px] mx-auto">
-                    <h1 class="mt-9 mb-4 font-bold text-2xl">Why don't you give a try? Analyse yourself.</h1>
+                    <h1 class="mt-9 mb-4 font-bold text-2xl">Why don't you give it a try? Analyse yourself.</h1>
+                    <p><br><br></p>
                 </div>
                 <div class="absolute bottom-0 w-full flex items-center gap-4">
                     <button class="bg-gray p-3 rounded-full" @click="previousStep">
