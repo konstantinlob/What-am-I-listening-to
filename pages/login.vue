@@ -46,7 +46,7 @@
         url.searchParams.append("client_id", clientId);
         url.searchParams.append("response_type", "code");
         url.searchParams.append("redirect_uri", redirectUri.toString());
-        url.searchParams.append("scopes", scopes.join(" "));
+        url.searchParams.append("scope", scopes.join(" "));
         url.searchParams.append("state", state);
         url.searchParams.append("code_challenge_method", "S256");
         url.searchParams.append("code_challenge", pkce.code_challenge);
@@ -71,7 +71,7 @@
         </div>
         <div class="flex flex-col items-center">
             <a href="https://github.com/konstantinlob/What-am-I-listening-to#readme" class="bg-purple px-4 py-2 h-min rounded-lg flex flex-row items-center font-bold" target="_blank">
-                <GithubBlack class="h-8 w-auto"/>
+                <GithubBlack class="h-8 w-auto" />
                 <span class="pl-2 text-[20px]">GitHub repo</span>
             </a>
             <span class="text-center w-full">Developled by <br> Benjamin Tallarek, Julius Jänchen, Konstantin Lobmayr, Pascal Heyn, Robin Walter</span>

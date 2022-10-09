@@ -6,7 +6,7 @@ interface requestParameter {
     headers?: object
 }
 
-export function request<dataType>({ endpoint, query, body, method, headers }: requestParameter): Promise<dataType> {
+export async function rawRequest({ endpoint, query, body, method, headers }: requestParameter) {
     const auth = localStorage.getItem("auth-token");
     if (!auth) {
         throw new Error("not logged in");
@@ -17,7 +17,9 @@ export function request<dataType>({ endpoint, query, body, method, headers }: re
         Object.entries(query).forEach(([key, value]) => url.searchParams.append(key, value));
     }
 
-    return fetch(url, {
+    // TODO: catch 429 and make retries
+
+    const response = await fetch(url, {
         method: method ?? "GET",
         headers: {
             Authorization: `Bearer ${auth}`,
@@ -25,10 +27,20 @@ export function request<dataType>({ endpoint, query, body, method, headers }: re
             ...headers,
         },
         body: body ? JSON.stringify(body) : undefined,
-    }).then((response) => {
-        return response.json();
-    }).then<dataType>((data) => {
-        if (data.error) {
+    });
+
+    return response;
+}
+
+export async function request<DataType>(parameters: requestParameter, noContent: any = null) {
+    return await rawRequest(parameters).then((response) => {
+        if (response.status === 204) { // 204 No-Content
+            return noContent;
+        } else {
+            return response.json();
+        }
+    }).then<DataType>((data) => {
+        if (data?.error) {
             // throw for .catch
             throw data.error;
         }
