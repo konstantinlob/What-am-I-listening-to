@@ -30,7 +30,7 @@ export function tradeCodeForToken(code: string, redirectUrl: string) {
 
         localStorage.setItem("auth-token", answer.access_token);
         localStorage.setItem("refresh-token", answer.refresh_token);
-        setTimeout(() => refreshAccessToken(), (answer.expires_in - 100) * 1000);
+        refreshAccessToken();
         navigateTo("/home");
     }));
     tokenRequest.catch(error => handleLoginError(error));

@@ -3,13 +3,13 @@ interface requestParameter {
     query?: object,
     body?: object,
     method?: "GET" | "POST" | "PUT",
-    headers?: object
 }
 
-export function request<dataType>({ endpoint, query, body, method, headers }: requestParameter): Promise<dataType> {
+export function request<dataType>({ endpoint, query, body, method }: requestParameter): Promise<dataType> {
     const auth = localStorage.getItem("auth-token");
     if (!auth) {
-        throw new Error("not logged in");
+        navigateTo("/login");
+        return Promise.reject(new Error("missing auth token"));
     }
 
     const url = new URL(`https://api.spotify.com/v1${endpoint}`);
@@ -22,18 +22,20 @@ export function request<dataType>({ endpoint, query, body, method, headers }: re
         headers: {
             Authorization: `Bearer ${auth}`,
             "Content-Type": "application/json",
-            ...headers,
         },
         body: body ? JSON.stringify(body) : undefined,
     }).then((response) => {
         if (response.ok) {
             return response.json();
         }
+        if (response.status === 403) {
+            navigateTo("/login");
+            return Promise.reject(new Error("403 unauthorized"));
+        }
         return response.text();
     }).then<dataType>((data) => {
         if (data.error) {
-            // throw for .catch
-            throw data.error;
+            console.error(data.error);
         }
         return data;
     });

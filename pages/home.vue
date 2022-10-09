@@ -4,7 +4,7 @@
         <div class="flex justify-center items-center h-[80vh] w-full p-5">
             <transition name="statistics" mode="out-in">
                 <StatisticsPurplePlaceholder v-if="currentSlide === 0" @click="nextSlide()" />
-                <StatisticsGreenPlaceholder v-else-if="currentSlide === 1" @click="nextSlide()" />
+                <StatisticsGenreDoughnut v-else-if="currentSlide === 1" @click="nextSlide()" />
             </transition>
         </div>
     </section>
