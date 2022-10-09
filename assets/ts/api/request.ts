@@ -9,7 +9,6 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
     const auth = localStorage.getItem("auth-token");
     if (!auth) {
         navigateTo("/login");
-        console.error("missing authorization token");
         throw new Error("missing authorization token");
     }
 
@@ -31,13 +30,11 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
         }
         if (response.status === 403) {
             navigateTo("/login");
-            console.error("Recieved '403 Forbidden' response from Spotify");
-            throw new Error("403");
+            throw new Error("Recieved '403 Forbidden' response from Spotify");
         }
         return response.text();
     }).then<dataType>((data) => {
         if (data.error) {
-            console.error(data.error);
             throw new Error(data.error);
         }
         return data;
