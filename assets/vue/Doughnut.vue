@@ -7,18 +7,18 @@
     import { Chart as ChartJS, registerables } from "chart.js";
     ChartJS.register(...registerables);
 
-    interface Genre {
+    interface DataPoint {
         name: string,
         count: number,
     }
     interface Props {
-        genres: Genre[],
+        doughnutData: DataPoint[],
     }
     const props = withDefaults(defineProps<Props>(), {
-        genres: () => [{ name: "Missing Data", count: 1 }],
+        doughnutData: () => [{ name: "Missing Data", count: 1 }],
     });
 
-    const { genres } = toRefs(props);
+    const { doughnutData } = toRefs(props);
 
     const chartOptions = {
         responsive: true,
@@ -33,9 +33,6 @@
         },
     };
 
-    // testdata
-    // ["VueJs", "EmberJs", "ReactJs", "AngularJs"]
-    // [40, 20, 80, 10]
     interface ChartData {
         labels: string[],
         datasets: Array<{
@@ -57,8 +54,8 @@
         ],
     };
 
-    genres.value.forEach((genre) => {
-        chartData.labels.push(genre.name);
-        chartData.datasets[0].data.push(genre.count);
+    doughnutData.value.forEach((dataPoint) => {
+        chartData.labels.push(dataPoint.name);
+        chartData.datasets[0].data.push(dataPoint.count);
     });
 </script>
