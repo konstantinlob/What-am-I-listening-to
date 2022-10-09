@@ -24,13 +24,13 @@
 
 <style scoped>
 .statistics-enter-from{
-  @apply translate-x-full opacity-0 rotate-12 scale-75;
+  @apply opacity-0 scale-100;
 }
 .statistics-enter-to, .statistics-leave-from{
-  @apply translate-x-0 opacity-100;
+  @apply translate-x-0 opacity-100 scale-100;
 }
 .statistics-leave-to{
-  @apply -translate-x-full opacity-0 -rotate-12 scale-75;
+  @apply opacity-0;
 }
 
 .statistics-enter-active,
