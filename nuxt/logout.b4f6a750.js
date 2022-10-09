@@ -1,1 +1,0 @@
-import{f as e}from"./entry.0a66babb.js";const a={__name:"logout",setup(o){return localStorage.removeItem("auth-token"),localStorage.removeItem("refresh-token"),localStorage.removeItem("auth-state"),localStorage.removeItem("code-verifier"),e("/"),()=>{}}};export{a as default};
