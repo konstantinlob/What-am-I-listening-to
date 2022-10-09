@@ -20,7 +20,8 @@
         if (genres.some(existingGenre => existingGenre.name === genre)) {
             // @ts-ignore
             genres.find(existingGenre => existingGenre.name === genre).count++;
+        } else {
+            genres.push({ name: genre, count: 1 });
         }
-        genres.push({ name: genre, count: 1 });
     }));
 </script>
