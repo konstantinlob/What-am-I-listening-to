@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
     import Doughnut from "~/assets/vue/Doughnut.vue";
-    import { request } from "~/assets/ts/api/requests/topArtistsRequest";
+    import { request } from "~/assets/ts/api";
     import { TopArtists } from "~/assets/ts/api/types";
 
     interface Genre {
