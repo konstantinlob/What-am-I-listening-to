@@ -17,6 +17,10 @@
     const genres: Genre[] = [];
     const topArtists = await request<TopArtists>({ endpoint: "/me/top/artists" });
     topArtists.items.forEach(artist => artist.genres.forEach((genre) => {
+        if (genres.length >= 20) { // due to limited amount of colors
+            return;
+        }
+
         if (genres.some(existingGenre => existingGenre.name === genre)) {
             // @ts-ignore
             genres.find(existingGenre => existingGenre.name === genre).count++;
