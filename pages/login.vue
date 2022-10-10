@@ -46,7 +46,7 @@
         url.searchParams.append("client_id", clientId);
         url.searchParams.append("response_type", "code");
         url.searchParams.append("redirect_uri", redirectUri.toString());
-        url.searchParams.append("scopes", scopes.join(" "));
+        url.searchParams.append("scope", scopes.join(" "));
         url.searchParams.append("state", state);
         url.searchParams.append("code_challenge_method", "S256");
         url.searchParams.append("code_challenge", pkce.code_challenge);
