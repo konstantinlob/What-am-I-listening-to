@@ -26,7 +26,7 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
         body: body ? JSON.stringify(body) : undefined,
     }).then((response) => {
         if (response.status === 204) {
-            throw new Error("204: no content");
+            return null;
         }
         if (response.status === 403) {
             navigateTo("/login");
