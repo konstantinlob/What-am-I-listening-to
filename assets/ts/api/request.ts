@@ -40,7 +40,7 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
         if (data.error) {
             throw new Error(data.error + ": " + data.error_description);
         }
-        if (data.status && data.staus !== 200) {
+        if (data.status && data.status !== 200) {
             throw new Error(data.status + ": " + data.message);
         }
         return data;
