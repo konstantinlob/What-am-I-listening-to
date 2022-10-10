@@ -1,1 +1,0 @@
-import{a as t,f as e}from"./entry.e4905d5b.js";const a=t({__name:"index",setup(o){return localStorage.getItem("auth-token")===null?localStorage.getItem("introduced")===null?(localStorage.setItem("introduced","true"),e("/introduction")):e("/login"):e("/home"),()=>{}}});export{a as default};
