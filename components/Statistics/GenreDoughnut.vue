@@ -12,18 +12,20 @@
     import { Timeframe } from "~/assets/ts/enums";
 
     const activeTimeframe = useState<Timeframe>("activeTimeframe").value;
-    const topArtists = {
-        [Timeframe.Month]: await request<TopArtists>({ endpoint: "/me/top/artists", query: { time_range: "short_term" } }).catch(console.error),
-        [Timeframe.HalfYear]: await request<TopArtists>({ endpoint: "/me/top/artists", query: { time_range: "medium_term" } }).catch(console.error),
-        [Timeframe.Year]: await request<TopArtists>({ endpoint: "/me/top/artists", query: { time_range: "long_term" } }).catch(console.error),
+    const timeRange = {
+        [Timeframe.Month]: "short_term",
+        [Timeframe.HalfYear]: "medium_term",
+        [Timeframe.Year]: "long_term",
     };
+
+    const topArtists = await request<TopArtists>({ endpoint: "/me/top/artists", query: { time_range: timeRange[activeTimeframe] } }).catch(console.error);
 
     interface Genre {
         name: string,
         count: number,
     }
     const genres: Genre[] = [];
-    topArtists[activeTimeframe]?.items.forEach(artist => artist.genres.forEach((genre) => {
+    topArtists?.items.forEach(artist => artist.genres.forEach((genre) => {
         if (genres.length >= 20) { // due to limited amount of colors
             return;
         }
