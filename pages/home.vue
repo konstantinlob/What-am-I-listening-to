@@ -8,6 +8,7 @@
                 <StatisticsIcebergTopArtists v-else-if="currentSlide === 2" @click="nextSlide()" />
             </transition>
         </div>
+        <MusicPlayer />
     </section>
 </template>
 

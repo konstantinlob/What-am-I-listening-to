@@ -10,9 +10,9 @@
     const clientId = "20aa48c2719e42c0be5f3b834942f06d";
     // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
     const scopes: string[] = [
-        // 'user-read-playback-state',
-        // 'user-modify-playback-state',
-        // 'user-read-currently-playing',
+        "user-read-playback-state",
+        "user-modify-playback-state",
+        "user-read-currently-playing",
         // 'app-remote-control',
         // 'streaming',
         // 'playlist-read-private',
@@ -22,7 +22,7 @@
         "user-top-read",
         "user-read-recently-played",
         // 'user-library-read',
-        // 'user-read-private',
+        "user-read-private", // needed to check if account is free or premium
     ];
 
     function generateRamdomHexString(len: number = 15): string {
@@ -32,9 +32,9 @@
     }
 
     async function login() {
-        const redirectUri = new URL(window.location.href); // this parameter needs to approved in the Spotify Developer Dashboard
-        redirectUri.search = "";
-        redirectUri.pathname = redirectUri.pathname.replace("login", "auth");
+        const router = useRouter(); // used to include the baseUrl
+        const redirectUri = new URL(router.resolve("/auth").href, window.location.href); // this parameter needs to approved in the Spotify Developer Dashboard
+        localStorage.setItem("redirect-uri", redirectUri.toString()); // save for /auth endpoint
 
         const state = generateRamdomHexString();
         localStorage.setItem("auth-state", state);
@@ -63,17 +63,17 @@
             </div>
             <div class="flex flex-col items-center">
                 <button class="bg-spotify-green px-8 py-4 h-min rounded-lg flex flex-row items-center font-bold" @click="login()">
-                    <SpotifyWhite class="h-10 w-full" />
+                    <SpotifyWhite class="h-10 w-auto" />
                     <span class="pl-2 text-[25px]">login</span>
                 </button>
                 <span class="flex items-center">Secured by OAuth2.0</span>
             </div>
         </div>
         <div class="flex flex-col items-center">
-            <button class="bg-purple px-4 py-2 h-min rounded-lg flex flex-row items-center font-bold">
-                <GithubBlack class="h-8 w-6" />
+            <a href="https://github.com/konstantinlob/What-am-I-listening-to#readme" class="bg-purple px-4 py-2 h-min rounded-lg flex flex-row items-center font-bold" target="_blank">
+                <GithubBlack class="h-8 w-auto"/>
                 <span class="pl-2 text-[20px]">GitHub repo</span>
-            </button>
+            </a>
             <span class="text-center w-full">Developled by <br> Benjamin Tallarek, Julius Jänchen, Konstantin Lobmayr, Pascal Heyn, Robin Walter</span>
         </div>
     </div>

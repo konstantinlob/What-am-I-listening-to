@@ -9,6 +9,7 @@ interface requestParameter {
 export function request<dataType>({ endpoint, query, body, method, headers }: requestParameter): Promise<dataType> {
     const auth = localStorage.getItem("auth-token");
     if (!auth) {
+<<<<<<< HEAD
         console.error("not logged in");
         throw new Error("not logged in");
     }
@@ -23,6 +24,14 @@ export function request<dataType>({ endpoint, query, body, method, headers }: re
         for (const [key, value] of Object.entries(query)) {
             url.searchParams.append(key, value);
         }
+=======
+        throw new Error("not logged in");
+    }
+
+    const url = new URL(`https://api.spotify.com/v1${endpoint}`);
+    if (query) {
+        Object.entries(query).forEach(([key, value]) => url.searchParams.append(key, value));
+>>>>>>> master
     }
 
     return fetch(url, {
