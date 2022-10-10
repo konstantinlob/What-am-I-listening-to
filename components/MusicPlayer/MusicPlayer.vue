@@ -44,7 +44,7 @@
     import { request } from "~/assets/ts/api";
     import { PlaybackState, Me } from "~/assets/ts/api/types/player";
 
-    const playbackState = useState<PlaybackState>();
+    const playbackState = useState<PlaybackState | null>();
     const me = await request<Me>({
         endpoint: "/me",
     });
@@ -63,7 +63,7 @@
     // data-fetch functions
 
     function fetchPlaybackState() {
-        request<PlaybackState>({
+        request<PlaybackState | null>({
             endpoint: "/me/player",
             query: {
                 additional_types: "track",
@@ -90,7 +90,9 @@
     }
 
     function playOrPause() {
-        if (!playbackState.value.is_playing) {
+        if(playbackState.value === null){
+            // do nothing
+        } else if (!playbackState.value.is_playing) {
             // start/resume
             request({
                 endpoint: "/me/player/play",
