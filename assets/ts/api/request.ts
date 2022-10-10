@@ -28,9 +28,6 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
         if (response.status === 204) {
             throw new Error("204: no content");
         }
-        if (response.ok) {
-            return response.json();
-        }
         if (response.status === 403) {
             navigateTo("/login");
             throw new Error("Recieved '403 Forbidden' response from Spotify");
