@@ -34,8 +34,8 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
         }
         return response.json();
     }).then<dataType>((data) => { // see https://developer.spotify.com/documentation/web-api/ for possible error responses
-        if (data.error) {
-            if (data.error.status) {
+        if (data?.error) {
+            if (data.error?.status) {
                 throw new Error(data.error.status + ": " + data.error.message);
             }
             throw new Error(data.error + ": " + data.error_description);
