@@ -3,8 +3,8 @@
         <TimeframeSelection />
         <div class="flex justify-center items-center h-[80vh] w-full p-5">
             <transition name="statistics" mode="out-in">
-                <StatisticsPurplePlaceholder v-if="currentSlide === 0" :key="activeTimeframe+'purple'" @click="nextSlide()" />
-                <StatisticsGenreDoughnut v-else-if="currentSlide === 1" :key="activeTimeframe+'genreDoughnut'" @click="nextSlide()" />
+                <StatisticsPurplePlaceholder v-if="currentSlide === 0" :key="activeTimeframe+'purple'" @click="nextSlide" />
+                <StatisticsGenreDoughnut v-else-if="currentSlide === 1" :key="activeTimeframe+'genreDoughnut'" @click="nextSlide" />
             </transition>
         </div>
     </section>
