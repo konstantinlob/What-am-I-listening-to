@@ -32,7 +32,7 @@ export async function rawRequest({ endpoint, query, body, method, headers }: req
     return response;
 }
 
-export async function request<DataType>(parameters: requestParameter, noContent: any = null) {
+export async function request<DataType>(parameters: requestParameter, noContent: any = null): Promise<DataType> {
     return await rawRequest(parameters).then((response) => {
         if (response.status === 204) { // 204 No-Content
             return noContent;
