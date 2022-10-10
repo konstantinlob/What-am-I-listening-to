@@ -4,12 +4,8 @@
             mode="out-in"
             :name="transition"
         >
-            <div v-if="step === 0" class="pt-24 flex flex-col h-full justify-between">
+            <div v-if="step === 0" class="pt-24 flex flex-col h-full justify-between" @click="nextStep">
                 <h1 class="text-4xl leading-[2.75rem] max-w-[12ch] font-bold"><p class="move-in1">Hi,</p><p class="move-in2">Welcome to What am I listening to</p></h1>
-                <button class="bg-spotify-black py-4 rounded-full font-bold text-base inline-flex items-center justify-center gap-[0.875rem] fade" @click="nextStep">
-                    <span>Continue</span>
-                    <ArrowRight class="w-4 aspect-square" />
-                </button>
             </div>
             <div v-else-if="step === 1" class="mx-2 relative text-center grid place-content-center h-full">
                 <div>
@@ -55,6 +51,8 @@
         transition.value = "slide-next";
         step.value++;
     };
+
+    setTimeout(function(){if(step.value == 0){nextStep();}},8000);
 
 </script>
 
