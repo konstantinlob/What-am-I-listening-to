@@ -25,6 +25,9 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
         },
         body: body ? JSON.stringify(body) : undefined,
     }).then((response) => {
+        if (response.status === 204) {
+            throw new Error("204: no content");
+        }
         if (response.ok) {
             return response.json();
         }
@@ -32,10 +35,13 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
             navigateTo("/login");
             throw new Error("Recieved '403 Forbidden' response from Spotify");
         }
-        return response.text();
-    }).then<dataType>((data) => {
+        return response.json();
+    }).then<dataType>((data) => { // see https://developer.spotify.com/documentation/web-api/ for possible error responses
         if (data.error) {
-            throw new Error(data.error);
+            throw new Error(data.error + ": " + data.error_description);
+        }
+        if (data.status && data.staus !== 200) {
+            throw new Error(data.status + ": " + data.message);
         }
         return data;
     });
