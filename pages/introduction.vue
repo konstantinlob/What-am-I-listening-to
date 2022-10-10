@@ -4,9 +4,9 @@
             mode="out-in"
             :name="transition"
         >
-            <div v-if="step === 0" class="pt-24 flex flex-col h-full justify-between opacity-0 animate-fade-in">
-                <h1 class="text-4xl leading-[2.75rem] max-w-[12ch] font-bold">Hi, <br>Welcome to What am I listening to.</h1>
-                <button class="bg-spotify-black py-4 rounded-full font-bold text-base inline-flex items-center justify-center gap-[0.875rem]" @click="nextStep">
+            <div v-if="step === 0" class="pt-24 flex flex-col h-full justify-between">
+                <h1 class="text-4xl leading-[2.75rem] max-w-[12ch] font-bold"><p class="move-in1">Hi,</p><p class="move-in2">Welcome to What am I listening to</p></h1>
+                <button class="bg-spotify-black py-4 rounded-full font-bold text-base inline-flex items-center justify-center gap-[0.875rem] fade" @click="nextStep">
                     <span>Continue</span>
                     <ArrowRight class="w-4 aspect-square" />
                 </button>
@@ -15,7 +15,7 @@
                 <div>
                     <img src="../assets/images/step-1.png" class="rounded-lg max-h-[288px] mx-auto">
                     <h1 class="mt-9 mb-4 font-bold text-2xl">I'm always trying to find out more about myself</h1>
-                    <p>what better window into your <br>emotions is there than your listening habits?</p>
+                    <p>What better window into your <br>emotions is there than your listening habits?</p>
                 </div>
                 <button class="bg-spotify-green absolute bottom-0 w-full py-4 rounded-full font-bold text-base inline-flex items-center justify-center gap-[0.875rem]" @click="nextStep">
                     <span>Continue</span>
@@ -55,9 +55,63 @@
         transition.value = "slide-next";
         step.value++;
     };
+
 </script>
 
 <style>
+
+.move-in1{
+    animation: movein 2s linear;
+}
+
+.move-in2{
+    animation: moveindelayed 4s linear;
+}
+
+.fade{
+    animation: fadein 5s linear;
+}
+
+@keyframes movein{
+    0%{
+        opacity: 0;
+    }
+    70%{
+        translate: 100vw;
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+        translate: 0;
+    }
+}
+
+@keyframes moveindelayed{
+    0%{
+        opacity: 0;
+    }
+    82.5%{
+        translate: 100vw;
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+        translate: 0;
+    }
+}
+
+@keyframes fadein{
+    0%{
+        opacity: 0;
+    }
+    90%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
 .slide-next-enter-active, .slide-next-leave-active{
   @apply transform transition ease-in-out duration-300;
 }
