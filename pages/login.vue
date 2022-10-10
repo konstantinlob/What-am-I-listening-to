@@ -19,7 +19,7 @@
         // 'playlist-read-collaborative',
         // 'user-follow-read',
         // 'user-read-playback-position',
-        // 'user-top-read',
+        "user-top-read",
         // 'user-read-recently-played',
         // 'user-library-read',
         "user-read-private", // needed to check if account is free or premium
