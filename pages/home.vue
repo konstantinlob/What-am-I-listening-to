@@ -3,8 +3,7 @@
         <TimeframeSelection />
         <div class="flex justify-center items-center h-[80vh] w-full p-5">
             <transition name="statistics" mode="out-in">
-                <StatisticsPurplePlaceholder v-if="currentSlide === 0" :key="activeTimeframe+'purple'" @click="nextSlide" />
-                <StatisticsGenreDoughnut v-else-if="currentSlide === 1" :key="activeTimeframe+'genreDoughnut'" @click="nextSlide" />
+                <component :is="slides[currentSlide]" :key="activeTimeframe" @click="nextSlide" />
             </transition>
         </div>
     </section>
@@ -13,13 +12,17 @@
 <script lang="ts" setup>
     import { Timeframe } from "~/assets/ts/enums";
 
-    const componentCount = 2;
     const currentSlide = useState<number>("currentSlide", () => 0);
     const activeTimeframe = useState<Timeframe>("activeTimeframe", () => Timeframe.Month);
 
+    const slides = [
+        resolveComponent("StatisticsPurplePlaceholder"),
+        resolveComponent("StatisticsGenreDoughnut"),
+    ];
+
     const nextSlide = () => {
         currentSlide.value++;
-        if (currentSlide.value >= componentCount) {
+        if (currentSlide.value >= slides.length) {
             currentSlide.value = 0;
         }
     };
