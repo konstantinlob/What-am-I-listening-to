@@ -4,7 +4,7 @@
     </main>
 </template>
 
-<script>
-    import { refreshAccessToken } from "./assets/ts/auth";
+<script lang="ts">
+    import { refreshAccessToken } from "~/assets/ts/auth";
     refreshAccessToken();
 </script>
