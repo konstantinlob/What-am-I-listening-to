@@ -28,9 +28,9 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
         if (response.status === 204) {
             return null;
         }
-        if (response.status === 403) {
+        if (response.status === 403 || response.status === 401) {
             navigateTo("/login");
-            throw new Error("Recieved '403 Forbidden' response from Spotify");
+            throw new Error(response.status + ": " + response.statusText);
         }
         return response.json();
     }).then<dataType>((data) => { // see https://developer.spotify.com/documentation/web-api/ for possible error responses
