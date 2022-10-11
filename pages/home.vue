@@ -3,8 +3,7 @@
         <TimeframeSelection />
         <div class="flex justify-center items-center h-[80vh] w-full p-5">
             <transition name="statistics" mode="out-in">
-                <StatisticsPurplePlaceholder v-if="currentSlide === 0" @click="nextSlide()" />
-                <StatisticsGreenPlaceholder v-else-if="currentSlide === 1" @click="nextSlide()" />
+                <component :is="slides[currentSlide]" @click="nextSlide" />
             </transition>
         </div>
         <MusicPlayer />
@@ -12,12 +11,16 @@
 </template>
 
 <script lang="ts" setup>
-    const componentCount = 2;
     const currentSlide = useState<number>("currentSlide", () => 0);
+
+    let slides = [
+        resolveComponent("StatisticsPurplePlaceholder"),
+        resolveComponent("StatisticsGreenPlaceholder"),
+    ]
 
     const nextSlide = () => {
         currentSlide.value++;
-        if (currentSlide.value >= componentCount) {
+        if (currentSlide.value >= slides.length) {
             currentSlide.value = 0;
         }
     };
