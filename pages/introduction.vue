@@ -59,54 +59,25 @@
 <style>
 
 .move-in1{
-    animation: movein 2s linear;
+    opacity: 0;
+    animation: movein 1s ease-in-out forwards;
+    animation-delay: 1s;
 }
 
 .move-in2{
-    animation: moveindelayed 4s linear;
-}
-
-.fade{
-    animation: fadein 5s linear;
+    opacity: 0;
+    animation: movein 1s ease-in-out forwards;
+    animation-delay: 3s;
 }
 
 @keyframes movein{
     0%{
-        opacity: 0;
-    }
-    70%{
         translate: 100vw;
         opacity: 0;
     }
     100%{
         opacity: 1;
         translate: 0;
-    }
-}
-
-@keyframes moveindelayed{
-    0%{
-        opacity: 0;
-    }
-    82.5%{
-        translate: 100vw;
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-        translate: 0;
-    }
-}
-
-@keyframes fadein{
-    0%{
-        opacity: 0;
-    }
-    90%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
     }
 }
 
