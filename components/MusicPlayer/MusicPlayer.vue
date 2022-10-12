@@ -42,7 +42,7 @@
 
 <script lang="ts" setup>
     import { request } from "~/assets/ts/api";
-    import { PlaybackState, Me } from "~/assets/ts/api/types/player";
+    import { PlaybackState, Me } from "~/assets/ts/api/types/";
 
     const playbackState = useState<PlaybackState | null>();
     const me = await request<Me>({
