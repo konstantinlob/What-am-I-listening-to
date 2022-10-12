@@ -1,7 +1,7 @@
 <script lang="ts" setup>
     import { request } from "~/assets/ts/api";
-    import { TopArtists } from "~/assets/ts/api/types/me";
-    import { Artist } from "~/assets/ts/api/types/generell";
+    import { TopArtists } from "~/assets/ts/api/types/";
+    import { Artist } from "~/assets/ts/api/types/";
 
     const topArtists: Artist[] = [];
 
@@ -27,8 +27,6 @@
     }
 
     const artists: Artist[] = Object.values(artistIndex);
-
-    console.log(artists);
 </script>
 
 <template>

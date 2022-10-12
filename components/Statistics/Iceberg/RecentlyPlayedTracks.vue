@@ -1,7 +1,6 @@
 <script lang="ts" setup>
     import { request } from "~/assets/ts/api";
-    import { RecentlyPlayed } from "~/assets/ts/api/types/";
-    import { Track } from "~/assets/ts/api/types/";
+    import { RecentlyPlayed, Track } from "~/assets/ts/api/types/";
 
     const recentlyPlayed: Track[] = [];
 
@@ -14,7 +13,7 @@
                 limit: 50,
             },
         });
-        recentlyPlayed.push(...data.items.map((v) => v.track));
+        recentlyPlayed.push(...data.items.map(v => v.track));
         url = data.next;
     }
 
@@ -30,7 +29,6 @@
 </script>
 
 <template>
-
     <section class="w-full h-full flex flex-col justify-center items-center">
         <h1 class="text-[30px] pb-6">Recently Played Tracks</h1>
         <StatisticsIceberg

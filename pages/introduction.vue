@@ -2,7 +2,7 @@
     <section class="h-full px-9 pb-8 overflow-hidden" :class="{'bg-spotify-green': step === 0}">
         <transition
             mode="out-in"
-            :name="transition"
+            :name="transitionName"
         >
             <div v-if="step === 0" class="pt-24 flex flex-col h-full justify-between opacity-0 animate-fade-in">
                 <h1 class="text-4xl leading-[2.75rem] max-w-[12ch] font-bold">Hi, <br>Welcome to what am I listening to.</h1>
@@ -44,14 +44,14 @@
     import ArrowRight from "~/assets/svg/arrow-right.svg?component";
 
     const step = useState<number>(() => 0);
-    const transition = useState<string>(() => "slide-next");
+    const transitionName = useState<string>(() => "slide-next");
 
     const previousStep = () => {
-        transition.value = "slide-previous";
+        transitionName.value = "slide-previous";
         step.value--;
     };
     const nextStep = () => {
-        transition.value = "slide-next";
+        transitionName.value = "slide-next";
         step.value++;
     };
 </script>
