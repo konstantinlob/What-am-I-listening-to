@@ -1,4 +1,4 @@
-import { Track } from "../generell";
+import { Track } from "./Track";
 
 export interface RecentlyPlayed {
     href: string,
