@@ -3,13 +3,13 @@ interface requestParameter {
     query?: object,
     body?: object,
     method?: "GET" | "POST" | "PUT",
-    headers?: object
 }
 
-export async function rawRequest({ endpoint, query, body, method, headers }: requestParameter) {
+export function request<DataType>({ endpoint, query, body, method }: requestParameter): Promise<DataType> {
     const auth = localStorage.getItem("auth-token");
     if (!auth) {
-        throw new Error("not logged in");
+        navigateTo("/login");
+        throw new Error("missing authorization token");
     }
 
     const url = new URL(`https://api.spotify.com/v1${endpoint}`);
@@ -19,30 +19,28 @@ export async function rawRequest({ endpoint, query, body, method, headers }: req
 
     // TODO: catch 429 and make retries
 
-    const response = await fetch(url, {
+    const response = fetch(url, {
         method: method ?? "GET",
         headers: {
             Authorization: `Bearer ${auth}`,
             "Content-Type": "application/json",
-            ...headers,
         },
         body: body ? JSON.stringify(body) : undefined,
-    });
-
-    return response;
-}
-
-export async function request<DataType>(parameters: requestParameter): Promise<DataType> {
-    return await rawRequest(parameters).then((response) => {
-        if (response.status === 204) { // 204 No-Content
+    }).then((response) => {
+        if (response.status === 204) {
             return null;
-        } else {
-            return response.json();
         }
-    }).then<DataType>((data) => {
+        if (response.status === 401 || response.status === 403) {
+            navigateTo("/login");
+            throw new Error(response.status + ": " + response.statusText);
+        }
+        return response.json();
+    }).then<dataType>((data) => { // see https://developer.spotify.com/documentation/web-api/ for possible error responses
         if (data?.error) {
-            // throw for .catch
-            throw data.error;
+            if (data.error.status) {
+                throw new Error(data.error.status + ": " + data.error.message);
+            }
+            throw new Error(data.error + ": " + data.error_description);
         }
         return data;
     });
