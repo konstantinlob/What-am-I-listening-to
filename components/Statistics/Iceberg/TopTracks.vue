@@ -30,8 +30,8 @@
 </script>
 
 <template>
-    <div class="w-full h-full">
-        <p>Top Tracks</p>
+    <section class="w-full h-full flex flex-col justify-center items-center">
+        <h1 class="text-[30px] pb-6">Top Tracks</h1>
         <StatisticsIceberg
             :items="tracks.map((track) => ({
                 info: track.name,
@@ -39,5 +39,5 @@
                 level: track.popularity,
             }))"
         />
-    </div>
+    </section>
 </template>

@@ -18,8 +18,8 @@
     const slides = [
         resolveComponent("StatisticsGenreDoughnut"),
         resolveComponent("StatisticsIcebergRecentlyPlayedTracks"),
-        resolveComponent("StatisticsIcebergTopArtists"),
         resolveComponent("StatisticsIcebergTopTracks"),
+        resolveComponent("StatisticsIcebergTopArtists"),
     ];
 
     const nextSlide = () => {

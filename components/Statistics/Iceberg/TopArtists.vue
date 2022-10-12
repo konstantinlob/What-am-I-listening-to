@@ -32,8 +32,8 @@
 </script>
 
 <template>
-    <div class="w-full h-full">
-        <p>Top Artists</p>
+    <section class="w-full h-full flex flex-col justify-center items-center">
+        <h1 class="text-[30px] pb-6">Top Artists</h1>
         <StatisticsIceberg
             :items="artists.map((artist) => ({
                 info: artist.name,
@@ -41,5 +41,5 @@
                 level: artist.popularity,
             }))"
         />
-    </div>
+    </section>
 </template>
