@@ -14,6 +14,7 @@
         "named": "never", 
         "asyncArrow": "always"}
       ],
+      "no-console": ["warn", {"allow": ["warn", "error"]}],
       "vue/multi-word-component-names": "off",
       "vue/html-indent": ["warn", 4, {
         "attribute": 1,
@@ -23,7 +24,8 @@
         "ignores": []
       }],
       "vue/singleline-html-element-content-newline": "off",
-      "no-console": ["warn", {"allow": ["warn", "error"]}]
+      "vue/no-v-for-template-key": "off",
+      "vue/no-v-for-template-key-on-child": "error"
   },
   "overrides": [
     {

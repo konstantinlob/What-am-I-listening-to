@@ -3,20 +3,22 @@
         <TimeframeSelection />
         <div class="flex justify-center items-center h-[80vh] w-full p-5">
             <transition name="statistics" mode="out-in">
-                <component :is="slides[currentSlide]" @click="nextSlide" />
+                <component :is="slides[currentSlide]" :key="activeTimeframe" @click="nextSlide" />
             </transition>
         </div>
-        <MusicPlayer />
     </section>
 </template>
 
 <script lang="ts" setup>
-    const currentSlide = useState<number>("currentSlide", () => 0);
+    import { Timeframe } from "~/assets/ts/enums";
 
-    let slides = [
+    const currentSlide = useState<number>("currentSlide", () => 0);
+    const activeTimeframe = useState<Timeframe>("activeTimeframe", () => Timeframe.Month);
+
+    const slides = [
         resolveComponent("StatisticsPurplePlaceholder"),
-        resolveComponent("StatisticsGreenPlaceholder"),
-    ]
+        resolveComponent("StatisticsGenreDoughnut"),
+    ];
 
     const nextSlide = () => {
         currentSlide.value++;
@@ -28,13 +30,13 @@
 
 <style scoped>
 .statistics-enter-from{
-  @apply translate-x-full opacity-0 rotate-12 scale-75;
+  @apply opacity-0 scale-100;
 }
 .statistics-enter-to, .statistics-leave-from{
-  @apply translate-x-0 opacity-100;
+  @apply translate-x-0 opacity-100 scale-100;
 }
 .statistics-leave-to{
-  @apply -translate-x-full opacity-0 -rotate-12 scale-75;
+  @apply opacity-0;
 }
 
 .statistics-enter-active,
