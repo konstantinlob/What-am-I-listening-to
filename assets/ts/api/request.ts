@@ -19,7 +19,7 @@ export function request<DataType>({ endpoint, query, body, method }: requestPara
 
     // TODO: catch 429 and make retries
 
-    const response = fetch(url, {
+    return fetch(url, {
         method: method ?? "GET",
         headers: {
             Authorization: `Bearer ${auth}`,
@@ -35,7 +35,7 @@ export function request<DataType>({ endpoint, query, body, method }: requestPara
             throw new Error(response.status + ": " + response.statusText);
         }
         return response.json();
-    }).then<dataType>((data) => { // see https://developer.spotify.com/documentation/web-api/ for possible error responses
+    }).then<DataType>((data) => { // see https://developer.spotify.com/documentation/web-api/ for possible error responses
         if (data?.error) {
             if (data.error.status) {
                 throw new Error(data.error.status + ": " + data.error.message);

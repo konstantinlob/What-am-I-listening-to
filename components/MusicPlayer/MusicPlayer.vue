@@ -90,7 +90,7 @@
     }
 
     function playOrPause() {
-        if(playbackState.value === null){
+        if (playbackState.value === null) {
             // do nothing
         } else if (!playbackState.value.is_playing) {
             // start/resume
