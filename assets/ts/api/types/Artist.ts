@@ -1,9 +1,9 @@
 export interface Artist {
-    "external_urls": {
+    external_urls: {
         spotify: string,
     },
     followers: {
-        href: null,
+        href: string,
         total: number,
     },
     genres: string[],
@@ -18,4 +18,4 @@ export interface Artist {
     popularity: number,
     type: "artist",
     uri: string,
-};
+}

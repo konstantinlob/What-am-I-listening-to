@@ -1,8 +1,8 @@
-import { Artist } from "../generell";
+import { Track } from "./Track";
 
-export interface TopArtists {
+export interface TopTracks {
     href: string,
-    items: Artist[],
+    items: Track[],
     limit: number,
     next: string | null,
     offset: number,

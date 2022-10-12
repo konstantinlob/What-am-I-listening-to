@@ -1,4 +1,5 @@
-import { Album, Artist } from "../generell";
+import { Album } from "./Album";
+import { Artist } from "./Artist";
 
 export interface Track {
     album: Album,
