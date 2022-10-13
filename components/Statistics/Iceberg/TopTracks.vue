@@ -1,7 +1,6 @@
 <script lang="ts" setup>
     import { request } from "~/assets/ts/api";
-    import { TopTracks } from "~/assets/ts/api/types/";
-    import { Track } from "~/assets/ts/api/types/";
+    import { Track, TopTracks } from "~/assets/ts/api/types/";
 
     const topTracks: Track[] = [];
 
