@@ -71,10 +71,10 @@
             },
         }).then((data) => {
             playbackState.value = data;
+            setTimeout(() => fetchPlaybackState(), 500); // delay needs maybe to be adjusted
         }).catch((error) => {
             console.error(error);
-        }).finally(() => {
-            setTimeout(() => fetchPlaybackState(), 500); // delay needs maybe to be adjusted
+            setTimeout(() => fetchPlaybackState(), 2000); // delay needs maybe to be adjusted
         });
     }
 
@@ -91,8 +91,10 @@
 
     function playOrPause() {
         if (playbackState.value === null) {
-            // do nothing
-        } else if (!playbackState.value.is_playing) {
+            return;
+        }
+
+        if (!playbackState.value.is_playing) {
             // start/resume
             request({
                 endpoint: "/me/player/play",
