@@ -1,10 +1,10 @@
 <template>
-    <Doughnut :chart-data="chartData" :chart-options="chartOptions" />
+    <Doughnut :chart-data="chartData" :chart-options="chartOptions" :plugins="[backgroundImagePlugin]" />
 </template>
 
 <script lang="ts" setup>
     import { Doughnut } from "vue-chartjs";
-    import { Chart as ChartJS, registerables } from "chart.js";
+    import { Chart as ChartJS, Plugin, ChartOptions, registerables } from "chart.js";
     ChartJS.register(...registerables);
 
     interface DataPoint {
@@ -20,7 +20,7 @@
 
     const { doughnutData } = toRefs(props);
 
-    const chartOptions = {
+    const chartOptions: ChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
@@ -32,6 +32,25 @@
             },
         },
     };
+
+    const image = new Image();
+    image.src = "~/assets/svg/WAILT_logo.svg";
+    image.onerror = console.error;
+
+    const backgroundImagePlugin: Plugin = {
+        id: "background-logo",
+        beforeDraw: (chart) => {
+            if(image.complete){
+                const ctx = chart.ctx;
+                const {top, left, width, height} = chart.chartArea;
+                const x = left + width / 2 - image.width / 2;
+                const y = top + height / 2 - image.height / 2;
+                ctx.drawImage(image, x, y);
+            } else {
+                image.onload = () => chart.draw();
+            }
+        }
+    }
 
     interface ChartData {
         labels: string[],
