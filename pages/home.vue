@@ -3,9 +3,7 @@
         <TimeframeSelection />
         <div class="flex justify-center items-center h-[80vh] w-full p-5">
             <transition name="statistics" mode="out-in">
-                <StatisticsRadarChartAudioFeatures v-if="currentSlide === 0" @click="nextSlide()" />
-                <StatisticsPurplePlaceholder v-else-if="currentSlide === 1" @click="nextSlide()" />
-                <StatisticsGreenPlaceholder v-else-if="currentSlide === 2" @click="nextSlide()" />
+                <component :is="slides[currentSlide]" :key="activeTimeframe" @click="nextSlide" />
             </transition>
         </div>
         <!-- <MusicPlayer /> -->
@@ -13,12 +11,19 @@
 </template>
 
 <script lang="ts" setup>
-    const componentCount = 3;
+    import { Timeframe } from "~/assets/ts/enums";
+
     const currentSlide = useState<number>("currentSlide", () => 0);
+    const activeTimeframe = useState<Timeframe>("activeTimeframe", () => Timeframe.Month);
+
+    const slides = [
+        resolveComponent("StatisticsRadarChartAudioFeatures"),
+        resolveComponent("StatisticsGenreDoughnut"),
+    ];
 
     const nextSlide = () => {
         currentSlide.value++;
-        if (currentSlide.value >= componentCount) {
+        if (currentSlide.value >= slides.length) {
             currentSlide.value = 0;
         }
     };
@@ -26,13 +31,13 @@
 
 <style scoped>
 .statistics-enter-from{
-  @apply translate-x-full opacity-0 rotate-12 scale-75;
+  @apply opacity-0 scale-100;
 }
 .statistics-enter-to, .statistics-leave-from{
-  @apply translate-x-0 opacity-100;
+  @apply translate-x-0 opacity-100 scale-100;
 }
 .statistics-leave-to{
-  @apply -translate-x-full opacity-0 -rotate-12 scale-75;
+  @apply opacity-0;
 }
 
 .statistics-enter-active,
