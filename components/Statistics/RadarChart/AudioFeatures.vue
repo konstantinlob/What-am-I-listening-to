@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <h1 class="text-center">Your Top Tracks</h1>
+    <section class="w-full h-full flex flex-col justify-center items-center">
+        <h1 class="text-[30px] pb-6">Your Top Tracks Analysed</h1>
         <StatisticsRadarChart :data="data" />
-    </div>
+    </section>
 </template>
 
 <script lang="ts" setup>

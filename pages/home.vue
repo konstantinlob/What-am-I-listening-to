@@ -17,8 +17,8 @@
     const activeTimeframe = useState<Timeframe>("activeTimeframe", () => Timeframe.Month);
 
     const slides = [
-        resolveComponent("StatisticsRadarChartAudioFeatures"),
         resolveComponent("StatisticsGenreDoughnut"),
+        resolveComponent("StatisticsRadarChartAudioFeatures"),
     ];
 
     const nextSlide = () => {

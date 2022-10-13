@@ -47,18 +47,27 @@
         },
     };
 
+    // spotify-colors
+    const primaryColor = "#1DB954"
+    const primaryAlpha = "#1DB95444"
+    const secondaryColor = "#eeeeee"
+    // blue-ish color
+    // const primaryColor = "#36A2EB"
+    // const primaryAlpha = "#36A2EB44"
+    // const secondaryColor = "#eeeeee"
+
     const chartData: TChartData<"radar"> = {
         labels: [],
         datasets: [{
             data: [],
             fill: true,
             borderWidth: 3,
-            backgroundColor: "rgba(54, 162, 235, 0.2)",
-            borderColor: "rgb(54, 162, 235)",
-            pointBackgroundColor: "rgb(54, 162, 235)",
-            pointBorderColor: "#fff",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgb(54, 162, 235)",
+            backgroundColor: primaryAlpha,
+            borderColor: primaryColor,
+            pointBackgroundColor: primaryColor,
+            pointBorderColor: secondaryColor,
+            pointHoverBackgroundColor: secondaryColor,
+            pointHoverBorderColor: secondaryColor,
         }],
     };
 
