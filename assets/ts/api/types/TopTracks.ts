@@ -1,4 +1,4 @@
-import { Track } from "../genrell";
+import { Track } from "./Track";
 
 export interface TopTracks {
     href: string,

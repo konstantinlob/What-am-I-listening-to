@@ -7,8 +7,8 @@
 
 <script lang="ts" setup>
     import { request } from "~/assets/ts/api";
-    import { TopTracks } from "~/assets/ts/api/types/me";
-    import { ManyAudioFeatures } from "~/assets/ts/api/types/tracks";
+    import { TopTracks } from "~/assets/ts/api/types";
+    import { ManyAudioFeatures } from "~/assets/ts/api/types";
 
     enum Timeframe {
         Month,

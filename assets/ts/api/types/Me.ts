@@ -15,11 +15,11 @@ export interface Me {
     },
     href: string,
     id: string,
-    images: [{
+    images: Array<{
         url: string,
         height: number,
         width: number,
-    }],
+    }>,
     product: "premium" | "free",
     type: "user",
     uri: string,
