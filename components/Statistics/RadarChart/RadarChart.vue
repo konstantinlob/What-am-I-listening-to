@@ -48,9 +48,9 @@
     };
 
     // spotify-colors
-    const primaryColor = "#1DB954"
-    const primaryAlpha = "#1DB95444"
-    const secondaryColor = "#eeeeee"
+    const primaryColor = "#1DB954";
+    const primaryAlpha = "#1DB95444";
+    const secondaryColor = "#eeeeee";
     // blue-ish color
     // const primaryColor = "#36A2EB"
     // const primaryAlpha = "#36A2EB44"

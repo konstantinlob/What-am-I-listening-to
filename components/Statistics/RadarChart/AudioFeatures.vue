@@ -2,38 +2,23 @@
     <section class="w-full h-full flex flex-col justify-center items-center">
         <h1 class="text-[30px] pb-6">Your Top Tracks Analysed</h1>
         <StatisticsRadarChart :data="data" />
+        <p class="text-gray">We analysed your Top Tracks for audio features</p>
     </section>
 </template>
 
 <script lang="ts" setup>
     import { request } from "~/assets/ts/api";
-    import { TopTracks } from "~/assets/ts/api/types";
-    import { ManyAudioFeatures } from "~/assets/ts/api/types";
+    import { toTitleCase } from "~/assets/ts/helpers";
+    import { TopTracks, ManyAudioFeatures } from "~/assets/ts/api/types";
+    import { Timeframe, timeRange } from "~/assets/ts/enums";
 
-    enum Timeframe {
-        Month,
-        HalfYear,
-        Year,
-    }
     const activeTimeframe = useState<Timeframe>("activeTimeframe");
-
-    function getTimeRange(){
-        if(activeTimeframe.value === Timeframe.Month){
-            return "short_term"
-        } else if(activeTimeframe.value === Timeframe.HalfYear) {
-            return "medium_term"
-        } else if(activeTimeframe.value === Timeframe.Year){
-            return "long_term"
-        } else {
-            return "medium_term"
-        }
-    }
 
     const topTracks = await request<TopTracks>({
         endpoint: "/me/top/tracks",
         query: {
             limit: 50,
-            time_range: getTimeRange(),  // short_term | medium_term | long_term
+            time_range: timeRange[activeTimeframe.value],
         },
     });
 
@@ -71,6 +56,6 @@
     });
 
     const data = Object.entries(features).map(
-        ([key, value]) => ({ name: key.toUpperCase(), value: value / total }),
+        ([key, value]) => ({ name: toTitleCase(key), value: value / total }),
     );
 </script>

@@ -1,5 +1,5 @@
-import { Album } from "./Album"
-import { Artist } from "./Artist"
+import { Album } from "./Album";
+import { Artist } from "./Artist";
 
 export interface PlaybackState {
     device: {
