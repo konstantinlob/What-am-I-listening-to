@@ -5,7 +5,7 @@
             :name="transition"
         >
             <div v-if="step === 0" class="pt-24 flex flex-col h-full justify-between" @click="nextStep">
-                <h1 class="text-4xl leading-[2.75rem] max-w-[12ch] font-bold"><p class="move-in1">Hi,</p><p class="move-in2">Welcome to What am I listening to</p></h1>
+                <h1 class="text-4xl leading-[2.75rem] max-w-[12ch] font-bold"><p class="animate-move-in-delay-1 opacity-0">Hi,</p><p class="animate-move-in-delay-3 opacity-0">Welcome to What am I listening to</p></h1>
             </div>
             <div v-else-if="step === 1" class="mx-2 relative text-center grid place-content-center h-full">
                 <div>
@@ -56,30 +56,7 @@
 
 </script>
 
-<style>
-
-.move-in1{
-    opacity: 0;
-    animation: movein 1s ease-in-out forwards;
-    animation-delay: 1s;
-}
-
-.move-in2{
-    opacity: 0;
-    animation: movein 1s ease-in-out forwards;
-    animation-delay: 3s;
-}
-
-@keyframes movein{
-    0%{
-        translate: 100vw;
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-        translate: 0;
-    }
-}
+<style scoped>
 
 .slide-next-enter-active, .slide-next-leave-active{
   @apply transform transition ease-in-out duration-300;
