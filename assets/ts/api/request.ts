@@ -5,7 +5,7 @@ interface requestParameter {
     method?: "GET" | "POST" | "PUT",
 }
 
-export function request<dataType>({ endpoint, query, body, method }: requestParameter): Promise<dataType> {
+export function request<DataType>({ endpoint, query, body, method }: requestParameter): Promise<DataType> {
     const auth = localStorage.getItem("auth-token");
     if (!auth) {
         navigateTo("/login");
@@ -16,6 +16,8 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
     if (query) {
         Object.entries(query).forEach(([key, value]) => url.searchParams.append(key, value));
     }
+
+    // TODO: catch 429 and make retries
 
     return fetch(url, {
         method: method ?? "GET",
@@ -28,14 +30,14 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
         if (response.status === 204) {
             return null;
         }
-        if (response.status === 403 || response.status === 401) {
+        if (response.status === 401 || response.status === 403) {
             navigateTo("/login");
             throw new Error(response.status + ": " + response.statusText);
         }
         return response.json();
-    }).then<dataType>((data) => { // see https://developer.spotify.com/documentation/web-api/ for possible error responses
+    }).then<DataType>((data) => { // see https://developer.spotify.com/documentation/web-api/ for possible error responses
         if (data?.error) {
-            if (data.error?.status) {
+            if (data.error.status) {
                 throw new Error(data.error.status + ": " + data.error.message);
             }
             throw new Error(data.error + ": " + data.error_description);

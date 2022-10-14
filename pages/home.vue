@@ -6,6 +6,7 @@
                 <component :is="slides[currentSlide]" :key="activeTimeframe" @click="nextSlide" />
             </transition>
         </div>
+        <MusicPlayer />
     </section>
 </template>
 
