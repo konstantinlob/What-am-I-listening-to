@@ -1,12 +1,11 @@
 <template>
-    <section>
-        <TimeframeSelection />
-        <div class="flex justify-center items-center h-[80vh] w-full p-5">
+    <section class="flex flex-col items-center">
+        <TimeframeSelection class="pb-5" />
+        <div class="h-[80vh] w-[400px]">
             <transition name="statistics" mode="out-in">
                 <component :is="slides[currentSlide]" :key="activeTimeframe" @click="nextSlide" />
             </transition>
         </div>
-        <MusicPlayer />
     </section>
 </template>
 
@@ -18,9 +17,7 @@
 
     const slides = [
         resolveComponent("StatisticsGenreDoughnut"),
-        resolveComponent("StatisticsIcebergRecentlyPlayedTracks"),
-        resolveComponent("StatisticsIcebergTopTracks"),
-        resolveComponent("StatisticsIcebergTopArtists"),
+        resolveComponent("StatisticsArtistIceberg"),
     ];
 
     const nextSlide = () => {
