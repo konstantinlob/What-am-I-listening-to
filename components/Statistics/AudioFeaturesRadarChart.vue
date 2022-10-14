@@ -1,12 +1,13 @@
 <template>
     <section class="w-full h-full flex flex-col justify-center items-center">
         <h1 class="text-[30px] pb-6">Your Top Tracks Analysed</h1>
-        <StatisticsRadarChart :data="data" />
+        <RadarChart :data="data" />
         <p class="text-gray">We analysed your Top Tracks for audio features</p>
     </section>
 </template>
 
 <script lang="ts" setup>
+    import RadarChart from "~~/assets/vue/RadarChart.vue";
     import { request } from "~/assets/ts/api";
     import { toTitleCase } from "~/assets/ts/helpers";
     import { TopTracks, ManyAudioFeatures } from "~/assets/ts/api/types";
