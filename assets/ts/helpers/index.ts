@@ -1,2 +1,2 @@
 export * from "./shuffleArray";
-export * from "./addArrayPadding";
+export * from "./normalizeToFixedLength";
