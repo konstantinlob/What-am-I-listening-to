@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
     import { Doughnut } from "vue-chartjs";
-    import { Chart as ChartJS, registerables, ChartOptions} from "chart.js";
+    import { Chart as ChartJS, registerables, ChartOptions } from "chart.js";
     ChartJS.register(...registerables);
 
     interface DataPoint {
@@ -20,7 +20,7 @@
 
     const { doughnutData } = toRefs(props);
 
-    const chartOptions: ChartOptions= {
+    const chartOptions: ChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
