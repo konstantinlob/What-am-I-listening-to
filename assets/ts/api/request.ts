@@ -5,10 +5,10 @@ interface requestParameter {
     method?: "GET" | "POST" | "PUT",
 }
 
-export function request<dataType>({ endpoint, query, body, method }: requestParameter): Promise<dataType> {
+export async function request<dataType>({ endpoint, query, body, method }: requestParameter): Promise<dataType> {
     const auth = localStorage.getItem("auth-token");
     if (!auth) {
-        navigateTo("/login");
+        await navigateTo("/login");
         throw new Error("missing authorization token");
     }
 
@@ -29,12 +29,12 @@ export function request<dataType>({ endpoint, query, body, method }: requestPara
             "Content-Type": "application/json",
         },
         body: body ? JSON.stringify(body) : undefined,
-    }).then((response) => {
+    }).then(async (response) => {
         if (response.status === 204) {
             return null;
         }
         if (response.status === 403 || response.status === 401) {
-            navigateTo("/login");
+            await navigateTo("/login");
             throw new Error(response.status + ": " + response.statusText);
         }
         return response.json();
