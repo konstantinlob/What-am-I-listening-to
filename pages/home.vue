@@ -33,7 +33,7 @@
   @apply opacity-0 scale-100;
 }
 .statistics-enter-to, .statistics-leave-from{
-  @apply translate-x-0 opacity-100 scale-100;
+  @apply translate-x-0 opacity-100 scale-100 scale-100;
 }
 .statistics-leave-to{
   @apply opacity-0;

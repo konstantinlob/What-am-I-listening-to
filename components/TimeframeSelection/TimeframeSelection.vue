@@ -26,7 +26,6 @@
 
 <script lang="ts" setup>
     import { Timeframe } from "~/assets/ts/enums";
-
     const activeTimeframe = useState<Timeframe>("activeTimeframe", () => Timeframe.Month);
 </script>
 
