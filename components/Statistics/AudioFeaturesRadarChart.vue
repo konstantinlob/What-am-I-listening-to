@@ -36,7 +36,8 @@
         [key: string]: number,
     }
 
-    let total = 0;
+    let trackCount = audioFeatures.audio_features.length;
+    
     const features: indexable = {
         acousticness: 0,
         danceability: 0,
@@ -50,13 +51,12 @@
     };
 
     audioFeatures.audio_features.forEach((audioFeatures: any) => {
-        total += 1;
         Object.keys(features).forEach((key) => {
             features[key] += audioFeatures[key];
         });
     });
 
     const data = Object.entries(features).map(
-        ([key, value]) => ({ name: toTitleCase(key), value: value / total }),
+        ([key, value]) => ({ name: toTitleCase(key), value: value / trackCount }),
     );
 </script>
