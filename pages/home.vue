@@ -18,6 +18,7 @@
 
     const slides = [
         resolveComponent("StatisticsGenreDoughnut"),
+        resolveComponent("StatisticsAudioFeaturesRadarChart"),
         resolveComponent("StatisticsArtistIceberg"),
     ];
 
