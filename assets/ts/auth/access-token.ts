@@ -24,7 +24,7 @@ export async function tradeCodeForToken(code: string, redirectUrl: string) {
         },
     });
 
-    tokenRequest.then((response) => response.json()).then((answer) => {
+    tokenRequest.then(response => response.json()).then((answer) => {
         if (answer.error) {
             handleLoginError("Spotify Authorization error: " + JSON.stringify(answer));
             return;
