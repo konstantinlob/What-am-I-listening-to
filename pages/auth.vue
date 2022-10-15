@@ -1,19 +1,26 @@
 <script lang="ts" setup>
-    import { tradeCodeForToken, handleLoginError } from "~/assets/ts/auth";
+    import { tradeCodeForToken, handleLoginError, resetAuthStorage } from "~/assets/ts/auth";
 
     const params = new URLSearchParams(window.location.search);
 
     const code = params.get("code");
+    const error = params.get("error");
     const redirectUrl = localStorage.getItem("redirect-uri");
 
     if (params.get("state") !== localStorage.getItem("auth-state")) {
-        handleLoginError("State missmatch. The authorization integrity might have been compormized!");
-    } else if (params.has("error")) {
-        handleLoginError("Spotify Authorization error: " + params.get("error"));
+        await handleLoginError("State missmatch. The authorization integrity might have been compormized!");
+    } else if (error) {
+        // user clicked cancel
+        if (error === "access_denied") {
+            resetAuthStorage();
+            await navigateTo("/login");
+        } else {
+            await handleLoginError("Spotify Authorization error: " + params.get("error"));
+        }
     } else if (!code || redirectUrl === null) {
-        handleLoginError("Missing pkce or redirect-uri");
+        await handleLoginError("Missing pkce or redirect-uri");
     } else {
         // further redirect happens in this function
-        tradeCodeForToken(code, redirectUrl);
+        await tradeCodeForToken(code, redirectUrl);
     }
 </script>

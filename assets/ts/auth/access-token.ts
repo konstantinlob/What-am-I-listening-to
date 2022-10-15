@@ -1,6 +1,6 @@
 import { navigateTo } from "#imports";
 
-export function tradeCodeForToken(code: string, redirectUrl: string) {
+export async function tradeCodeForToken(code: string, redirectUrl: string) {
     // login() only returns a code challenge. This function turns the code challenge into an auth-token
 
     const codeVerifier = localStorage.getItem("code-verifier");
@@ -22,26 +22,40 @@ export function tradeCodeForToken(code: string, redirectUrl: string) {
         },
     });
 
-    tokenRequest.then(response => response.json().then((answer) => {
+    tokenRequest.then(response => response.json()).then(async (answer) => {
         if (answer.error) {
-            handleLoginError("Spotify Authorization error: " + JSON.stringify(answer));
+            await handleLoginError("Spotify Authorization error: " + JSON.stringify(answer));
             return;
         }
 
         localStorage.setItem("auth-token", answer.access_token);
         localStorage.setItem("refresh-token", answer.refresh_token);
-        refreshAccessToken(); // because first access token is apperantly invalid
-        navigateTo("/home");
-    }));
-    tokenRequest.catch(error => handleLoginError(error));
-    tokenRequest.finally(() => {
-        localStorage.removeItem("code-verifier");
-        localStorage.removeItem("auth-state");
-        localStorage.removeItem("redirect-uri");
+        await refreshAccessToken(); // because first access token is apperantly invalid
+        await navigateTo("/home");
+    });
+    tokenRequest.catch(handleLoginError);
+    tokenRequest.finally(resetAuthStorage);
+
+    await tokenRequest;
+}
+
+export function resetAuthStorage() {
+    localStorage.removeItem("code-verifier");
+    localStorage.removeItem("auth-state");
+    localStorage.removeItem("redirect-uri");
+}
+
+export async function handleLoginError(msg: string) {
+    console.error(msg);
+    await navigateTo({
+        path: "/error",
+        query: {
+            "redirect-uri": "/login",
+        },
     });
 }
 
-export function refreshAccessToken() {
+export async function refreshAccessToken() {
     const refreshToken = localStorage.getItem("refresh-token");
     if (refreshToken === null) {
         navigateTo("/login");
@@ -78,9 +92,6 @@ export function refreshAccessToken() {
         console.warn("access Token refresh failed (network error): " + error);
         navigateTo("/login");
     });
-}
 
-export function handleLoginError(msg: string) {
-    console.error(msg);
-    navigateTo("/error?redirect-uri=/login");
+    await tokenRequest;
 }
