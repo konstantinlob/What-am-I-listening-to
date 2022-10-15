@@ -1,7 +1,7 @@
 <template>
     <section class="w-full h-full flex flex-col justify-center items-center">
         <h1 class="text-[30px] pb-6">Your Top Tracks Analysed</h1>
-        <RadarChart :data="data" />
+        <RadarChart :data="chartData" />
         <p class="text-gray">We analysed your Top Tracks for audio features</p>
     </section>
 </template>
@@ -34,9 +34,7 @@
 
     interface indexable {
         [key: string]: number,
-    }
-
-    let trackCount = audioFeatures.audio_features.length;
+    };
     
     const features: indexable = {
         acousticness: 0,
@@ -56,7 +54,9 @@
         });
     });
 
-    const data = Object.entries(features).map(
-        ([key, value]) => ({ name: toTitleCase(key), value: value / trackCount }),
+    const trackCount = audioFeatures.audio_features.length;
+
+    const chartData = Object.entries(features).map(
+        ([featureName, valueSum]) => ({ name: toTitleCase(featureName), value: valueSum / trackCount }),
     );
 </script>
