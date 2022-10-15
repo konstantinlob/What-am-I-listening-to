@@ -1,3 +1,25 @@
+<template>
+    <section class="flex flex-col w-full h-full">
+        <h1 class="text-[30px] pb-6 text-center">Your Favorite Artists on the Popularity Iceberg</h1>
+        <div class="w-full grow relative">
+            <IcebergBackground class="absolute h-full w-full" />
+            <img v-if="orderedItems[0]" :src="orderedItems[0]" class="overWaterAlbumCover left-[35%] top-[10%]">
+            <img v-if="orderedItems[1]" :src="orderedItems[1]" class="overWaterAlbumCover left-[25%] top-[20%]">
+            <img v-if="orderedItems[2]" :src="orderedItems[2]" class="overWaterAlbumCover left-[40%] top-[20%]">
+            <img v-if="orderedItems[3]" :src="orderedItems[3]" class="overWaterAlbumCover left-[55%] top-[20%]">
+            <img v-if="orderedItems[4]" :src="orderedItems[4]" class="overWaterAlbumCover left-[15%] top-[30%]">
+            <img v-if="orderedItems[5]" :src="orderedItems[5]" class="overWaterAlbumCover left-[32%] top-[30%]">
+            <img v-if="orderedItems[6]" :src="orderedItems[6]" class="overWaterAlbumCover left-[48%] top-[30%]">
+            <img v-if="orderedItems[7]" :src="orderedItems[7]" class="overWaterAlbumCover left-[65%] top-[30%]">
+            <div class="absolute inset-x-[10%] top-[38%] bottom-0 grid grid-cols-5 grid-rows-4 place-items-center">
+                <template v-for="(item, index) in orderedItems.slice(8, 29)" :key="index + item">
+                    <img v-if="item" :src="item" class="w-10 h-10">
+                </template>
+            </div>
+        </div>
+    </section>
+</template>
+
 <script lang="ts" setup>
     import IcebergBackground from "~/assets/svg/Iceberg.svg?component";
     import { normalizeToFixedLength, shuffleArray } from "~/assets/ts/helpers";
@@ -42,28 +64,6 @@
         .map(tier => shuffleArray(tier))
         .flat().flatMap(artist => artist === null ? null : artist.images[0].url);
 </script>
-
-<template>
-    <section class="flex flex-col w-full h-full">
-        <h1 class="text-[30px] pb-6 text-center">Your Favorite Artists on the Popularity Iceberg</h1>
-        <div class="w-full grow relative">
-            <IcebergBackground class="absolute h-full w-full" />
-            <img v-if="orderedItems[0]" :src="orderedItems[0]" class="overWaterAlbumCover left-[35%] top-[10%]">
-            <img v-if="orderedItems[1]" :src="orderedItems[1]" class="overWaterAlbumCover left-[25%] top-[20%]">
-            <img v-if="orderedItems[2]" :src="orderedItems[2]" class="overWaterAlbumCover left-[40%] top-[20%]">
-            <img v-if="orderedItems[3]" :src="orderedItems[3]" class="overWaterAlbumCover left-[55%] top-[20%]">
-            <img v-if="orderedItems[4]" :src="orderedItems[4]" class="overWaterAlbumCover left-[15%] top-[30%]">
-            <img v-if="orderedItems[5]" :src="orderedItems[5]" class="overWaterAlbumCover left-[32%] top-[30%]">
-            <img v-if="orderedItems[6]" :src="orderedItems[6]" class="overWaterAlbumCover left-[48%] top-[30%]">
-            <img v-if="orderedItems[7]" :src="orderedItems[7]" class="overWaterAlbumCover left-[65%] top-[30%]">
-            <div class="absolute inset-x-[10%] top-[38%] bottom-0 grid grid-cols-5 grid-rows-4 place-items-center">
-                <template v-for="(item, index) in orderedItems.slice(8, 29)" :key="index + item">
-                    <img v-if="item" :src="item" class="w-10 h-10">
-                </template>
-            </div>
-        </div>
-    </section>
-</template>
 
 <style scoped>
     .overWaterAlbumCover {
