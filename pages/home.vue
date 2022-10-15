@@ -6,8 +6,8 @@
                 <component :is="slides[currentSlide]" :key="activeTimeframe" />
             </transition>
             <div class="absolute flex w-full h-full">
-                <button class="w-1/3 h-full" @click="previousSlide" />
-                <button class="w-2/3 h-full" @click="nextSlide" />
+                <button class="w-1/3 h-full active:hidden" @click="previousSlide" />
+                <button class="w-2/3 h-full active:hidden" @click="nextSlide" />
             </div>
         </div>
         <MusicPlayer />
