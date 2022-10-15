@@ -18,7 +18,12 @@
         [Timeframe.Year]: "long_term",
     };
 
-    const topArtists = await request<TopArtists>({ endpoint: "/me/top/artists", query: { time_range: timeRange[activeTimeframe] } }).catch(console.error);
+    const topArtists = await request<TopArtists>({
+        endpoint: "/me/top/artists",
+        query: {
+            time_range: timeRange[activeTimeframe],
+        },
+    }).catch(console.error);
 
     interface Genre {
         name: string,
