@@ -14,6 +14,6 @@
         handleLoginError("Missing pkce or redirect-uri");
     } else {
         // further redirect happens in this function
-        tradeCodeForToken(code, redirectUrl);
+        await tradeCodeForToken(code, redirectUrl);
     }
 </script>

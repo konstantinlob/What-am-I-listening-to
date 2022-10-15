@@ -6,5 +6,5 @@
 
 <script lang="ts" setup>
     import { refreshAccessToken } from "~/assets/ts/auth";
-    refreshAccessToken();
+    await refreshAccessToken();  // ensure token is "new" before loading the page
 </script>
