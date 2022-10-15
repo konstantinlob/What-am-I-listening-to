@@ -10,7 +10,7 @@
                         <p class="text-white">
                             {{ playbackState.item.name }}
                         </p>
-                        <p class="text-gray">
+                        <p class="text-[#bbb]">
                             {{ playbackState.item.artists.map(a => a.name).join(', ') }}
                         </p>
                     </div>
@@ -20,16 +20,15 @@
                             <button @click="playOrPause()">⏯</button>
                             <button @click="skipToNext()">⏭</button>
                         </div>
-                        <p>{{ mstime2string(playbackState.progress_ms) }} / {{ mstime2string(playbackState.item.duration_ms) }}</p>
+                        <p>{{ mstime2string(songProgress ? songProgress.progress : null) }} / {{ mstime2string(playbackState.item.duration_ms) }}</p>
                     </div>
                 </div>
                 <!-- progress bar -->
                 <div class="h-1 relative">
                     <div class="absolute bg-gray h-full w-full" />
                     <div
-                        v-if="playbackState.progress_ms !== null"
                         class="absolute bg-white h-full"
-                        :style="{width: `${playbackState.progress_ms / playbackState.item.duration_ms * 100}%`}"
+                        :style="{width: `${songProgress.percent * 100}%`}"
                     />
                 </div>
             </div>
@@ -42,14 +41,32 @@
 
 <script lang="ts" setup>
     import { request } from "~/assets/ts/api";
-    import { PlaybackState, Me } from "~/assets/ts/api/types/player";
+    import { PlaybackState, Me } from "~/assets/ts/api/types/";
 
-    const playbackState = useState<PlaybackState>();
+    interface Progress {
+        progress: number,
+        percent: number,
+        fetched: number,
+    }
+
+    const playbackState = useState<PlaybackState | null>(() => null);
     const me = await request<Me>({
         endpoint: "/me",
     });
+    const songProgress = useState<Progress>(() => ({ progress: 0, percent: 0, fetched: 0 }));
 
-    fetchPlaybackState();
+    let interval: NodeJS.Timer;
+
+    onBeforeMount(() => {
+        fetchPlaybackState();
+        interval = setInterval(updateProgress, 250);
+    });
+
+    onBeforeUnmount(() => {
+        clearInterval(interval);
+    });
+
+    // utility functions and other
 
     function mstime2string(ms: number | null) {
         if (ms === null) {
@@ -60,10 +77,29 @@
         return `${minutes}:${(seconds % 60).toString().padStart(2, "0")}`;
     }
 
+    function updateProgress() {
+        const state = playbackState.value;
+        if (!(state?.progress_ms && state?.item?.duration_ms)) {
+            return;
+        }
+
+        let progress = state.progress_ms;
+
+        if (state.is_playing) {
+            progress = state.progress_ms + (Date.now() - songProgress.value.fetched);
+        }
+
+        songProgress.value = {
+            progress,
+            percent: progress / state.item?.duration_ms,
+            fetched: songProgress.value.fetched,
+        };
+    }
+
     // data-fetch functions
 
     function fetchPlaybackState() {
-        request<PlaybackState>({
+        request<PlaybackState | null>({
             endpoint: "/me/player",
             query: {
                 additional_types: "track",
@@ -71,10 +107,11 @@
             },
         }).then((data) => {
             playbackState.value = data;
+            songProgress.value.fetched = Date.now(); // support for progress calculation
+            setTimeout(() => fetchPlaybackState(), 2500);
         }).catch((error) => {
             console.error(error);
-        }).finally(() => {
-            setTimeout(() => fetchPlaybackState(), 500); // delay needs maybe to be adjusted
+            setTimeout(() => fetchPlaybackState(), 10000);
         });
     }
 
@@ -90,10 +127,14 @@
     }
 
     function playOrPause() {
-        if (!playbackState.value.is_playing) {
+        if (playbackState.value === null) {
+            return;
+        }
+
+        if (playbackState.value.is_playing) {
             // start/resume
             request({
-                endpoint: "/me/player/play",
+                endpoint: "/me/player/pause",
                 method: "PUT",
                 query: {
                     device_id: playbackState.value.device.id,
@@ -104,7 +145,7 @@
         } else {
             // stop/pause
             request({
-                endpoint: "/me/player/pause",
+                endpoint: "/me/player/play",
                 method: "PUT",
                 query: {
                     device_id: playbackState.value.device.id,
