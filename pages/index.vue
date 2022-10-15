@@ -2,11 +2,11 @@
     if (localStorage.getItem("auth-token") === null) {
         if (localStorage.getItem("introduced") === null) {
             localStorage.setItem("introduced", "true");
-            navigateTo("/introduction");
+            await navigateTo("/introduction");
         } else {
-            navigateTo("/login");
+            await navigateTo("/login");
         }
     } else {
-        navigateTo("/home");
+        await navigateTo("/home");
     }
 </script>
