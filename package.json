@@ -5,7 +5,8 @@
   "scripts": {
     "lint": "eslint --ext .ts,.js,.vue --fix .",
     "build": "nuxt generate",
-    "deploy": "gh-pages -d .output/public",
+    "postbuild": "touch .output/public/.nojekyll",
+    "deploy": "gh-pages --dist .output/public --dotfiles",
     "start": "nuxt dev",
     "dev": "nuxt dev",
     "generate": "nuxt generate",

@@ -18,7 +18,7 @@
 
     const slides = [
         resolveComponent("StatisticsGenreDoughnut"),
-        resolveComponent("StatisticsPurplePlaceholder"),
+        resolveComponent("StatisticsAudioFeaturesRadarChart"),
     ];
 
     const nextSlide = () => {
