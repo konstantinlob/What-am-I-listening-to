@@ -55,6 +55,8 @@ export async function handleLoginError(msg: string) {
             "redirect-uri": "/login",
         },
     });
+
+    await tokenRequest;
 }
 
 export async function refreshAccessToken() {
