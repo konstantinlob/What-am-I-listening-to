@@ -2,21 +2,18 @@
     <section class="w-full h-full flex flex-col justify-center items-center">
         <h1 class="text-[30px] pb-6">Your Favorite Genres</h1>
         <Doughnut :doughnut-data="genres" />
+        <p class="text-gray">We found to what genres you like</p>
     </section>
 </template>
 
 <script lang="ts" setup>
     import Doughnut from "~/assets/vue/Doughnut.vue";
+    import { toTitleCase } from "~/assets/ts/helpers";
     import { request } from "~/assets/ts/api";
     import { TopArtists } from "~/assets/ts/api/types";
-    import { Timeframe } from "~/assets/ts/enums";
+    import { Timeframe, timeRange } from "~/assets/ts/enums";
 
     const activeTimeframe = useState<Timeframe>("activeTimeframe").value;
-    const timeRange = {
-        [Timeframe.Month]: "short_term",
-        [Timeframe.HalfYear]: "medium_term",
-        [Timeframe.Year]: "long_term",
-    };
 
     const topArtists = await request<TopArtists>({
         endpoint: "/me/top/artists",
@@ -30,15 +27,12 @@
         count: number,
     }
     const genres: Genre[] = [];
-    topArtists?.items.forEach(artist => artist.genres.forEach((genre) => {
-        if (genres.length >= 20) { // due to limited amount of colors
-            return;
-        }
-
-        if (genres.some(existingGenre => existingGenre.name === genre)) {
-            // @ts-ignore
-            genres.find(existingGenre => existingGenre.name === genre).count++;
-        } else {
+    topArtists?.items?.forEach(artist => artist.genres.forEach((genre) => {
+        genre = toTitleCase(genre);
+        const existingGenre = genres.find(existingGenre => existingGenre.name === genre);
+        if (existingGenre) {
+            existingGenre.count++;
+        } else if (genres.length < 20) { // due to limited amount of colors
             genres.push({ name: genre, count: 1 });
         }
     }));

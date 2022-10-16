@@ -7,6 +7,7 @@ export async function tradeCodeForToken(code: string, redirectUrl: string) {
     if (codeVerifier === null) {
         throw new Error("missing code-verifier for fetching access token");
     }
+
     const grant = {
         grant_type: "authorization_code",
         code,
@@ -14,6 +15,7 @@ export async function tradeCodeForToken(code: string, redirectUrl: string) {
         client_id: "20aa48c2719e42c0be5f3b834942f06d",
         code_verifier: codeVerifier,
     };
+
     const tokenRequest = fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
         body: new URLSearchParams(Object.entries(grant)).toString(),
