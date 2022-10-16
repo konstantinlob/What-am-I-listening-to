@@ -1,12 +1,13 @@
 import { navigateTo } from "#imports";
 
-export function tradeCodeForToken(code: string, redirectUrl: string) {
+export async function tradeCodeForToken(code: string, redirectUrl: string) {
     // login() only returns a code challenge. This function turns the code challenge into an auth-token
 
     const codeVerifier = localStorage.getItem("code-verifier");
     if (codeVerifier === null) {
         throw new Error("missing code-verifier for fetching access token");
     }
+
     const grant = {
         grant_type: "authorization_code",
         code,
@@ -14,6 +15,7 @@ export function tradeCodeForToken(code: string, redirectUrl: string) {
         client_id: "20aa48c2719e42c0be5f3b834942f06d",
         code_verifier: codeVerifier,
     };
+
     const tokenRequest = fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
         body: new URLSearchParams(Object.entries(grant)).toString(),
@@ -22,7 +24,7 @@ export function tradeCodeForToken(code: string, redirectUrl: string) {
         },
     });
 
-    tokenRequest.then(response => response.json().then((answer) => {
+    tokenRequest.then(response => response.json()).then((answer) => {
         if (answer.error) {
             handleLoginError("Spotify Authorization error: " + JSON.stringify(answer));
             return;
@@ -32,19 +34,28 @@ export function tradeCodeForToken(code: string, redirectUrl: string) {
         localStorage.setItem("refresh-token", answer.refresh_token);
         refreshAccessToken(); // because first access token is apperantly invalid
         navigateTo("/home");
-    }));
-    tokenRequest.catch(error => handleLoginError(error));
+    });
+
+    tokenRequest.catch(handleLoginError);
+
     tokenRequest.finally(() => {
         localStorage.removeItem("code-verifier");
         localStorage.removeItem("auth-state");
         localStorage.removeItem("redirect-uri");
     });
+
+    await tokenRequest;
 }
 
-export function refreshAccessToken() {
+export function handleLoginError(msg: string) {
+    console.error(msg);
+    navigateTo("/error?redirect-uri=/login");
+}
+
+export async function refreshAccessToken() {
     const refreshToken = localStorage.getItem("refresh-token");
     if (refreshToken === null) {
-        navigateTo("/login");
+        await navigateTo("/login");
         return;
     }
 
@@ -78,9 +89,6 @@ export function refreshAccessToken() {
         console.warn("access Token refresh failed (network error): " + error);
         navigateTo("/login");
     });
-}
 
-export function handleLoginError(msg: string) {
-    console.error(msg);
-    navigateTo("/error?redirect-uri=/login");
+    await tokenRequest;
 }
