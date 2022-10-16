@@ -60,7 +60,7 @@ export async function handleLoginError(msg: string) {
 export async function refreshAccessToken() {
     const refreshToken = localStorage.getItem("refresh-token");
     if (refreshToken === null) {
-        navigateTo("/login");
+        await navigateTo("/login");
         return;
     }
 
@@ -77,22 +77,22 @@ export async function refreshAccessToken() {
         },
     });
 
-    tokenRequest.then(response => response.json().then((answer) => {
+    tokenRequest.then(response => response.json()).then(async (answer) => {
         if (answer.error) {
             console.warn("access Token refresh failed: " + JSON.stringify(answer));
-            navigateTo("/login");
+            await navigateTo("/login");
             return;
         }
 
         localStorage.setItem("auth-token", answer.access_token);
         localStorage.setItem("refresh-token", answer.refresh_token);
         setTimeout(() => refreshAccessToken(), (answer.expires_in - 100) * 1000);
-    }));
-    tokenRequest.catch((error) => {
+    });
+    tokenRequest.catch(async (error) => {
         localStorage.removeItem("auth-token");
         localStorage.removeItem("refresh-token");
         console.warn("access Token refresh failed (network error): " + error);
-        navigateTo("/login");
+        await navigateTo("/login");
     });
 
     await tokenRequest;
