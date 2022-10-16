@@ -24,32 +24,37 @@ export async function tradeCodeForToken(code: string, redirectUrl: string) {
         },
     });
 
-    tokenRequest.then(response => response.json()).then((answer) => {
+    tokenRequest.then(response => response.json()).then(async (answer) => {
         if (answer.error) {
-            handleLoginError("Spotify Authorization error: " + JSON.stringify(answer));
+            await handleLoginError("Spotify Authorization error: " + JSON.stringify(answer));
             return;
         }
 
         localStorage.setItem("auth-token", answer.access_token);
         localStorage.setItem("refresh-token", answer.refresh_token);
-        refreshAccessToken(); // because first access token is apperantly invalid
-        navigateTo("/home");
+        await refreshAccessToken(); // because first access token is apperantly invalid
+        await navigateTo("/home");
     });
-
     tokenRequest.catch(handleLoginError);
-
-    tokenRequest.finally(() => {
-        localStorage.removeItem("code-verifier");
-        localStorage.removeItem("auth-state");
-        localStorage.removeItem("redirect-uri");
-    });
+    tokenRequest.finally(resetAuthStorage);
 
     await tokenRequest;
 }
 
-export function handleLoginError(msg: string) {
+export function resetAuthStorage() {
+    localStorage.removeItem("code-verifier");
+    localStorage.removeItem("auth-state");
+    localStorage.removeItem("redirect-uri");
+}
+
+export async function handleLoginError(msg: string) {
     console.error(msg);
-    navigateTo("/error?redirect-uri=/login");
+    await navigateTo({
+        path: "/error",
+        query: {
+            "redirect-uri": "/login",
+        },
+    });
 }
 
 export async function refreshAccessToken() {
@@ -72,22 +77,22 @@ export async function refreshAccessToken() {
         },
     });
 
-    tokenRequest.then(response => response.json().then((answer) => {
+    tokenRequest.then(response => response.json()).then(async (answer) => {
         if (answer.error) {
             console.warn("access Token refresh failed: " + JSON.stringify(answer));
-            navigateTo("/login");
+            await navigateTo("/login");
             return;
         }
 
         localStorage.setItem("auth-token", answer.access_token);
         localStorage.setItem("refresh-token", answer.refresh_token);
         setTimeout(() => refreshAccessToken(), (answer.expires_in - 100) * 1000);
-    }));
-    tokenRequest.catch((error) => {
+    });
+    tokenRequest.catch(async (error) => {
         localStorage.removeItem("auth-token");
         localStorage.removeItem("refresh-token");
         console.warn("access Token refresh failed (network error): " + error);
-        navigateTo("/login");
+        await navigateTo("/login");
     });
 
     await tokenRequest;
