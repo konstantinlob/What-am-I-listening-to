@@ -1,10 +1,14 @@
 <template>
     <section>
         <TimeframeSelection />
-        <div class="flex justify-center items-center h-[80vh] w-full p-5">
+        <div class="flex justify-center items-center h-[80vh] w-full p-5 relative">
             <transition name="statistics" mode="out-in">
-                <component :is="slides[currentSlide]" :key="activeTimeframe" @click="nextSlide" />
+                <component :is="slides[currentSlide]" :key="activeTimeframe" />
             </transition>
+            <div class="absolute flex w-full h-full">
+                <button class="w-1/3 h-full active:hidden" @click="previousSlide" />
+                <button class="w-2/3 h-full active:hidden" @click="nextSlide" />
+            </div>
         </div>
         <MusicPlayer />
     </section>
@@ -25,6 +29,12 @@
         currentSlide.value++;
         if (currentSlide.value >= slides.length) {
             currentSlide.value = 0;
+        }
+    };
+    const previousSlide = () => {
+        currentSlide.value--;
+        if (currentSlide.value < 0) {
+            currentSlide.value = slides.length - 1;
         }
     };
 </script>
