@@ -1,4 +1,4 @@
-import { Artist } from "./";
+import { Artist } from "./Artist";
 
 export interface Album {
     album_type: string,
@@ -9,11 +9,11 @@ export interface Album {
     },
     href: string,
     id: string,
-    images: {
+    images: Array<{
         url: string,
         height: string,
         width: string,
-    }[],
+    }>,
     name: string,
     release_date: string,
     release_date_precision: "year" | "month" | "day",

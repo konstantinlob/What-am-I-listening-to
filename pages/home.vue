@@ -1,11 +1,11 @@
 <template>
-    <section>
-        <TimeframeSelection />
-        <div class="flex justify-center items-center h-[80vh] w-full p-5 relative">
+    <section class="flex flex-col items-center">
+        <TimeframeSelection class="pb-5" />
+        <div class="h-[80vh] w-[400px] relative">
             <transition name="statistics" mode="out-in">
                 <component :is="slides[currentSlide]" :key="activeTimeframe" />
             </transition>
-            <div class="absolute flex w-full h-full">
+            <div class="absolute top-0 flex w-full h-full">
                 <button class="w-1/3 h-full no-tap-highlight" @click="previousSlide" />
                 <button class="w-2/3 h-full no-tap-highlight" @click="nextSlide" />
             </div>
@@ -23,6 +23,7 @@
     const slides = [
         resolveComponent("StatisticsGenreDoughnut"),
         resolveComponent("StatisticsAudioFeaturesRadarChart"),
+        resolveComponent("StatisticsArtistIceberg"),
     ];
 
     const nextSlide = () => {
@@ -44,7 +45,7 @@
   @apply opacity-0 scale-100;
 }
 .statistics-enter-to, .statistics-leave-from{
-  @apply translate-x-0 opacity-100 scale-100;
+  @apply translate-x-0 opacity-100 scale-100 scale-100;
 }
 .statistics-leave-to{
   @apply opacity-0;

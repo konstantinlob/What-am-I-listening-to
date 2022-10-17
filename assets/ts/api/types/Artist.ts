@@ -3,7 +3,7 @@ export interface Artist {
         spotify: string,
     },
     followers: {
-        href: null,
+        href: string,
         total: number,
     },
     genres: string[],
@@ -18,4 +18,4 @@ export interface Artist {
     popularity: number,
     type: "artist",
     uri: string,
-};
+}

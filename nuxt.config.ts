@@ -6,7 +6,6 @@ export default defineNuxtConfig({
     ssr: false,
     app: {
         baseURL: "/What-am-I-listening-to/", // repo name to build correctly for github-pages
-        buildAssetsDir: "nuxt", // default: _nuxt // _nuxt is not accepted by github-pages
     },
     modules: ["@nuxtjs/tailwindcss"],
     vite: {
