@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
     import { Doughnut } from "vue-chartjs";
-    import { Chart as ChartJS, Plugin, ChartOptions, registerables } from "chart.js";
+    import { Chart as ChartJS, ChartOptions, registerables } from "chart.js";
     ChartJS.register(...registerables);
 
     interface DataPoint {
