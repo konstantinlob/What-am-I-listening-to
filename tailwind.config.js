@@ -11,11 +11,17 @@ module.exports = {
         extend: {
             animation: {
                 "fade-in": "fadeIn 1s ease-in-out forwards",
+                "move-in-delay-1": "moveIn 1s ease-in-out 1s forwards",
+                "move-in-delay-3": "moveIn 1s ease-in-out 3s forwards",
             },
             keyframes: {
                 fadeIn: {
                     "0%": { opacity: 0 },
                     "100%": { opacity: 1 },
+                },
+                moveIn: {
+                    "0%": { translate: "100vw", opacity: 0 },
+                    "100%": { opacity: 1, translate: 0 },
                 },
             },
             transitionProperty: {
