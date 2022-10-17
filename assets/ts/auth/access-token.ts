@@ -60,7 +60,6 @@ export async function handleLoginError(msg: string) {
 export async function refreshAccessToken() {
     const refreshToken = localStorage.getItem("refresh-token");
     if (refreshToken === null) {
-        await navigateTo("/login");
         return;
     }
 
