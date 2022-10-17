@@ -8,7 +8,7 @@
         <button class="nav-element no-tap-highlight right-1" @click="toggleMenu">
             <img :src="me.images[0]?.url ?? defaultAvatar" alt="user" class="h-full w-auto">
         </button>
-        <NavbarMenu v-if="menuVisible" class="absolute right-0 top-12 rounded-l-md" />
+        <NavbarMenu v-if="isMenuVisible" class="absolute right-0 top-12 rounded-l-md" />
     </nav>
 </template>
 
@@ -20,14 +20,14 @@
     // @ts-ignore
     import defaultAvatar from "~/assets/svg/default-avatar.svg?inline";
 
-    const menuVisible = useState<boolean>();
+    const isMenuVisible = useState<boolean>();
 
     const me = await request<Me>({
         endpoint: "/me",
     });
 
     function toggleMenu() {
-        menuVisible.value = !menuVisible.value;
+        isMenuVisible.value = !isMenuVisible.value;
     }
 </script>
 
