@@ -1,8 +1,11 @@
 <template>
-    <nav class="h-10 p-1 relative">
-        <SpotifyLogo class="nav-child p-1 left-1" />
-        <WailtLogo class="nav-child left-[50%] translate-x-[-50%]" />
-        <button class="nav-child right-1" @click="toggleMenu">
+    <nav class="h-10 relative">
+        <SpotifyLogo class="nav-element left-1" />
+        <WailtLogo class="nav-element right-[50%]" />
+        <div class="absolute left-[50%] font-bold top-[50%] translate-y-[-50%]">
+            WAILT
+        </div>
+        <button class="nav-element no-tap-highlight right-1" @click="toggleMenu">
             <img :src="me.images[0]?.url ?? defaultAvatar" alt="user" class="h-full w-auto">
         </button>
         <NavbarMenu v-if="menuVisible" class="absolute right-0 top-12 rounded-l-md" />
@@ -12,7 +15,7 @@
 <script lang="ts" setup>
     import { request } from "~/assets/ts/api";
     import { Me } from "~/assets/ts/api/types";
-    import SpotifyLogo from "~/assets/svg/Spotify_Logo_White.svg?component";
+    import SpotifyLogo from "~/assets/svg/Spotify_Icon_Green.svg?component";
     import WailtLogo from "~/assets/svg/WAILT_logo.svg?component";
     // @ts-ignore
     import defaultAvatar from "~/assets/svg/default-avatar.svg?inline";
@@ -29,7 +32,11 @@
 </script>
 
 <style scoped>
-    .nav-child {
-        @apply h-full w-auto absolute
+    .nav-element {
+        @apply h-full w-auto absolute top-1
+    }
+
+    .no-tap-highlight {
+        -webkit-tap-highlight-color: transparent;
     }
 </style>
