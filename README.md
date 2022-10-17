@@ -1,35 +1,15 @@
-# Nuxt 3 Minimal Starter
+# <img src="README.assets/WAILT_logo.svg" alt="" style="height: 2rem; background-color: black; border-radius: 50%; padding: 1px;" /> What am I listening to
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+> Are you always trying to find out more about yourself?
 
-## Setup
+> Why dont you give it a try?
 
-Make sure to install the dependencies:
+> WAILT helps you to analyse your spotify behavior
 
-```bash
-npm install
-```
+<div style="height: 35px; width: 100%;">
+    <a href="https://konstantinlob.github.io/What-am-I-listening-to/" target="_blank" rel="noreferrer noopener" style="margin: 0px auto; padding: 10px 16px; background-color: #1DB954; color: white; border-radius: 20px; font-weight: 700;">
+        Test it out
+    </a>
+</div>
 
-## Development Server
-
-Start the development server on http://localhost:3000/What-am-I-listening-to
-
-```bash
-npm start
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Deploy the build to to github-pages
-
-```bash
-npm run deploy
-```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+![demo](README.assets/app-demo.gif)
