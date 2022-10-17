@@ -1,5 +1,5 @@
 <template>
-    <nav class="h-12 w-full bg-gray p-1 relative">
+    <nav class="nav-bg h-12 w-full bg-gray p-1 relative">
         <div class="h-full w-full relative">
             <SpotifyLogo class="nav-element left-1" />
             <WailtLogo class="nav-element left-[50%] translate-x-[-50%]" />
@@ -7,7 +7,7 @@
                 <img :src="me.images[0]?.url ?? defaultAvatar" alt="user" class="h-full w-auto">
             </button>
         </div>
-        <NavbarMenu v-if="isMenuVisible" class="absolute right-0 top-12 rounded-bl-md" />
+        <NavbarMenu :me="me" class="nav-menu absolute top-12 rounded-l-md max-w-[50%]" :class="{'right-0': isMenuVisible, 'right-[-51%]': !isMenuVisible}" />
     </nav>
 </template>
 
@@ -37,5 +37,14 @@
 
     .no-tap-highlight {
         -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-bg {
+        background-image: linear-gradient( 180deg, #4F4F4F, #191414);
+    }
+
+    .nav-menu {
+        border: 1px solid gray;
+        transition: right 0.5s;
     }
 </style>
