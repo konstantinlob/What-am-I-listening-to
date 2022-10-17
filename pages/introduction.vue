@@ -52,7 +52,7 @@
         step.value++;
     };
 
-    setTimeout(function(){if(step.value == 0){nextStep();}},8000);
+    setTimeout(() => step.value === 0 ? nextStep() : null, 8000);
 
 </script>
 

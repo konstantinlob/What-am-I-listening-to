@@ -20,9 +20,9 @@ module.exports = {
                     "100%": { opacity: 1 },
                 },
                 moveIn: {
-                    "0%": {translate: "100vw", opacity: 0},
-                    "100%": {opacity: 1, translate: 0},
-                }
+                    "0%": { translate: "100vw", opacity: 0 },
+                    "100%": { opacity: 1, translate: 0 },
+                },
             },
             transitionProperty: {
                 width: "width",
