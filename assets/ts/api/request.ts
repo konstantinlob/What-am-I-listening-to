@@ -5,14 +5,19 @@ interface requestParameter {
     method?: "GET" | "POST" | "PUT",
 }
 
-export function request<DataType>({ endpoint, query, body, method }: requestParameter): Promise<DataType> {
+export async function request<DataType>({ endpoint, query, body, method }: requestParameter): Promise<DataType> {
     const auth = localStorage.getItem("auth-token");
     if (!auth) {
-        navigateTo("/login");
+        await navigateTo("/login");
         throw new Error("missing authorization token");
     }
 
-    const url = new URL(`https://api.spotify.com/v1${endpoint}`);
+    let url: URL;
+    if (endpoint.startsWith("http")) {
+        url = new URL(endpoint);
+    } else {
+        url = new URL(`https://api.spotify.com/v1${endpoint}`);
+    }
     if (query) {
         Object.entries(query).forEach(([key, value]) => url.searchParams.append(key, value));
     }
@@ -26,12 +31,12 @@ export function request<DataType>({ endpoint, query, body, method }: requestPara
             "Content-Type": "application/json",
         },
         body: body ? JSON.stringify(body) : undefined,
-    }).then((response) => {
+    }).then(async (response) => {
         if (response.status === 204) {
             return null;
         }
-        if (response.status === 401 || response.status === 403) {
-            navigateTo("/login");
+        if (response.status === 403 || response.status === 401) {
+            await navigateTo("/login");
             throw new Error(response.status + ": " + response.statusText);
         }
         return response.json();
