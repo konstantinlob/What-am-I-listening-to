@@ -1,14 +1,13 @@
 <template>
-    <nav class="h-10 w-full relative">
-        <SpotifyLogo class="nav-element left-1" />
-        <WailtLogo class="nav-element right-[50%]" />
-        <div class="absolute left-[50%] font-bold top-[50%] translate-y-[-50%]">
-            WAILT
+    <nav class="h-12 w-full bg-gray p-1 relative">
+        <div class="h-full w-full relative">
+            <SpotifyLogo class="nav-element left-1" />
+            <WailtLogo class="nav-element left-[50%] translate-x-[-50%]" />
+            <button class="nav-element no-tap-highlight right-1" @click="toggleMenu">
+                <img :src="me.images[0]?.url ?? defaultAvatar" alt="user" class="h-full w-auto">
+            </button>
         </div>
-        <button class="nav-element no-tap-highlight right-1" @click="toggleMenu">
-            <img :src="me.images[0]?.url ?? defaultAvatar" alt="user" class="h-full w-auto">
-        </button>
-        <NavbarMenu v-if="isMenuVisible" class="absolute right-0 top-12 rounded-l-md" />
+        <NavbarMenu v-if="isMenuVisible" class="absolute right-0 top-12 rounded-bl-md" />
     </nav>
 </template>
 
@@ -33,7 +32,7 @@
 
 <style scoped>
     .nav-element {
-        @apply h-full w-auto absolute top-1
+        @apply h-full w-auto absolute
     }
 
     .no-tap-highlight {
