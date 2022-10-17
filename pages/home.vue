@@ -1,5 +1,6 @@
 <template>
     <section class="flex flex-col items-center">
+        <Navbar />
         <TimeframeSelection class="pb-5" />
         <div class="h-[80vh] w-[400px] relative">
             <transition name="statistics" mode="out-in">
