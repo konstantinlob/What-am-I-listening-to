@@ -27,7 +27,7 @@
     import { Artist, TopArtists } from "~/assets/ts/api/types";
     import { Timeframe, timeRange } from "~/assets/ts/enums";
 
-    const response: TopArtists = await request<TopArtists>({
+    const topArtists: TopArtists = await request<TopArtists>({
         endpoint: "/me/top/artists",
         query: {
             time_range: timeRange[useState<Timeframe>("activeTimeframe").value],
@@ -35,7 +35,7 @@
         },
     });
     const popularityTiers: Artist[][] = [[], [], [], [], [], [], []];
-    response.items.forEach((artist) => {
+    topArtists.items.forEach((artist) => {
         if (artist.popularity > 90) {
             popularityTiers[0].push(artist);
         } else if (artist.popularity > 80) {
