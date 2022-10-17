@@ -6,8 +6,8 @@
                 <component :is="slides[currentSlide]" :key="activeTimeframe" />
             </transition>
             <div class="absolute flex w-full h-full">
-                <button class="w-1/3 h-full active:hidden" @click="previousSlide" />
-                <button class="w-2/3 h-full active:hidden" @click="nextSlide" />
+                <button class="w-1/3 h-full no-tap-highlight" @click="previousSlide" />
+                <button class="w-2/3 h-full no-tap-highlight" @click="nextSlide" />
             </div>
         </div>
         <MusicPlayer />
@@ -53,5 +53,9 @@
 .statistics-enter-active,
 .statistics-leave-active{
   @apply transform transition ease-in-out duration-500;
+}
+
+.no-tap-highlight {
+  -webkit-tap-highlight-color: transparent;
 }
 </style>
