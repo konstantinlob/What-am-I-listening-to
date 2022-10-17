@@ -15,7 +15,12 @@
 
     const activeTimeframe = useState<Timeframe>("activeTimeframe").value;
 
-    const topArtists = await request<TopArtists>({ endpoint: "/me/top/artists", query: { time_range: timeRange[activeTimeframe] } }).catch(console.error);
+    const topArtists = await request<TopArtists>({
+        endpoint: "/me/top/artists",
+        query: {
+            time_range: timeRange[activeTimeframe],
+        },
+    }).catch(console.error);
 
     interface Genre {
         name: string,

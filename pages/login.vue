@@ -50,7 +50,7 @@
         url.searchParams.append("state", state);
         url.searchParams.append("code_challenge_method", "S256");
         url.searchParams.append("code_challenge", pkce.code_challenge);
-        navigateTo(url.toString(), { external: true });
+        await navigateTo(url.toString(), { external: true });
     }
 </script>
 
