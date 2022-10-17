@@ -1,5 +1,5 @@
 <template>
-    <nav class="h-10 relative">
+    <nav class="h-10 w-full relative">
         <SpotifyLogo class="nav-element left-1" />
         <WailtLogo class="nav-element right-[50%]" />
         <div class="absolute left-[50%] font-bold top-[50%] translate-y-[-50%]">
