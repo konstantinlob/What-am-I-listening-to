@@ -1,4 +1,4 @@
-# <img src="README.assets/WAILT_logo.svg" alt="" style="height: 2rem; background-color: black; border-radius: 50%; padding: 1px;" /> What am I listening to
+# <img src="README.assets/WAILT_logo_black_background.svg" alt="What-Am-I-Listening-To-Logo" style="height: 2rem; background-color: black; border-radius: 50%; padding: 1px;" /> What am I listening to
 
 > Are you always trying to find out more about yourself?
 
