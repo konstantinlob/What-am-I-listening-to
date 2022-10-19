@@ -1,5 +1,5 @@
 <template>
-    <main class="bg-spotify-black absolute inset-0 text-white">
+    <main class="bg-spotify-black absolute inset-0 text-white overflow-hidden">
         <NuxtPage />
     </main>
 </template>
