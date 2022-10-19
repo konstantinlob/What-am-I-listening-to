@@ -8,17 +8,17 @@
     const redirectUrl = localStorage.getItem("redirect-uri");
 
     if (params.get("state") !== localStorage.getItem("auth-state")) {
-        await handleLoginError("State missmatch. The authorization integrity might have been compormized!");
+        handleLoginError("State missmatch. The authorization integrity might have been compormized!");
     } else if (error) {
         // user clicked cancel
         if (error === "access_denied") {
             resetAuthStorage();
             await navigateTo("/login");
         } else {
-            await handleLoginError("Spotify Authorization error: " + params.get("error"));
+            handleLoginError("Spotify Authorization error: " + params.get("error"));
         }
     } else if (!code || redirectUrl === null) {
-        await handleLoginError("Missing pkce or redirect-uri");
+        handleLoginError("Missing pkce or redirect-uri");
     } else {
         // further redirect happens in this function
         await tradeCodeForToken(code, redirectUrl);

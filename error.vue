@@ -11,18 +11,17 @@
     }>();
 
     const is404Error = props.error.statusCode === 404;
+    const allowGoBack = window.history.length > 1;
 
-    const params = new URLSearchParams(window.location.search);
-
-    const redirectUrl = params.get("redirect-uri");
+    async function goBack() {
+        await clearError();
+        window.history.back();
+    }
 
     const reportLink = new URL("https://github.com/konstantinlob/What-am-I-listening-to/issues/new");
     reportLink.searchParams.append("title", "I Found a Bug");
     reportLink.searchParams.append("body", `
 <!--- Provide a general summary of the issue in the Title above -->
-
-<!-- don't edit these lines -->
-${props.error.name}: ${props.error.message}
 
 ## Expected Behavior
 <!--- Tell us what should happen -->
@@ -37,6 +36,12 @@ ${props.error.name}: ${props.error.message}
 2.
 3.
 4.
+
+<!-- don't edit these lines. They are for us -->
+${props.error.name}: ${props.error.message}
+${JSON.stringify(props.error)}
+
+${props.error.stack}
 `);
 </script>
 
@@ -50,9 +55,9 @@ ${props.error.name}: ${props.error.message}
             <NuxtLink to="/" class="button" @click="clearError">
                 Home
             </NuxtLink>
-            <NuxtLink v-if="redirectUrl" :to="redirectUrl" class="button" @click="clearError">
+            <button v-if="allowGoBack" class="button" @click="goBack">
                 back
-            </NuxtLink>
+            </button>
         </div>
         <NuxtLink v-if="!is404Error" :to="reportLink.toString()" target="_blank" class="absolute left-[50%] translate-x-[-50%] bottom-0 underline text-[#05f]">
             Report this Error

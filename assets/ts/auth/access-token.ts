@@ -26,7 +26,7 @@ export async function tradeCodeForToken(code: string, redirectUrl: string) {
 
     tokenRequest.then(response => response.json()).then(async (answer) => {
         if (answer.error) {
-            await handleLoginError("Spotify Authorization error: " + JSON.stringify(answer));
+            handleLoginError("Spotify Authorization error: " + JSON.stringify(answer));
             return;
         }
 
@@ -47,14 +47,8 @@ export function resetAuthStorage() {
     localStorage.removeItem("redirect-uri");
 }
 
-export async function handleLoginError(msg: string) {
-    console.error(msg);
-    await navigateTo({
-        path: "/error",
-        query: {
-            "redirect-uri": "/login",
-        },
-    });
+export function handleLoginError(msg: string) {
+    throw createError({ statusMessage: msg, fatal: true });
 }
 
 export async function refreshAccessToken() {
