@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <!-- progress bar -->
-                <div class="h-1 relative">
+                <div class="h-1 relative overflow-hidden">
                     <div class="absolute bg-gray h-full w-full" />
                     <div
                         class="absolute bg-white h-full"
@@ -88,6 +88,8 @@
         if (state.is_playing) {
             progress = state.progress_ms + (Date.now() - songProgress.value.fetched);
         }
+
+        progress = Math.min(progress, state.item.duration_ms);
 
         songProgress.value = {
             progress,
