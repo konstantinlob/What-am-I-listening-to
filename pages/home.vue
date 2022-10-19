@@ -11,7 +11,7 @@
                 <button class="w-2/3 h-full no-tap-highlight" @click="nextSlide" />
             </div>
         </div>
-        <MusicPlayer />
+        <MusicPlayer class="absolute left-0 bottom-0 right-0" />
     </section>
 </template>
 
