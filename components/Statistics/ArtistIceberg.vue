@@ -1,6 +1,6 @@
 <template>
     <section class="flex flex-col w-full h-full">
-        <h1 class="text-[30px] pb-6 text-center">Your Favorite Artists on the Popularity Iceberg</h1>
+        <h1 class="text-[30px] pb-6 text-center">Artists Popularity Iceberg</h1>
         <Iceberg class="w-full grow" :data="orderedItems" />
     </section>
 </template>
