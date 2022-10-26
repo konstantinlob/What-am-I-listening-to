@@ -6,6 +6,7 @@
             <transition name="statistics" mode="out-in">
                 <component :is="slides[currentSlide]" :key="activeTimeframe" />
             </transition>
+            <!-- manuell/desktop controlls on the side of the page -->
             <button class="absolute top-0 left-0 w-[25px] h-full no-tap-highlight" @click="previousSlide" />
             <button class="absolute top-0 right-0 w-[25px] h-full no-tap-highlight" @click="nextSlide" />
         </div>
