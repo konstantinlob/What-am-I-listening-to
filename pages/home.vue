@@ -6,10 +6,8 @@
             <transition name="statistics" mode="out-in">
                 <component :is="slides[currentSlide]" :key="activeTimeframe" />
             </transition>
-            <div class="absolute top-0 flex w-full h-full">
-                <button class="w-1/3 h-full no-tap-highlight" @click="previousSlide" />
-                <button class="w-2/3 h-full no-tap-highlight" @click="nextSlide" />
-            </div>
+            <button class="absolute top-0 left-0 w-[25px] h-full no-tap-highlight" @click="previousSlide" />
+            <button class="absolute top-0 right-0 w-[25px] h-full no-tap-highlight" @click="nextSlide" />
         </div>
         <MusicPlayer class="absolute left-0 bottom-0 right-0" />
     </section>
@@ -39,6 +37,37 @@
             currentSlide.value = slides.length - 1;
         }
     };
+
+    let touchstartX: number | null = null;
+
+    function checkDirection(delta: number) {
+        if (delta < -50) { previousSlide(); }
+        if (delta > 50) { nextSlide(); }
+    }
+
+    function onTouchStart(e: any) {
+        touchstartX = e.changedTouches[0].screenX;
+    }
+
+    function onTouchEnd(e: any) {
+        if (touchstartX === null) {
+            return;
+        }
+
+        const touchendX = e.changedTouches[0].screenX;
+        checkDirection(touchstartX - touchendX);
+        touchstartX = null;
+    }
+
+    onMounted(() => {
+        document.addEventListener("touchstart", onTouchStart);
+        document.addEventListener("touchend", onTouchEnd);
+    });
+
+    onBeforeUnmount(() => {
+        document.removeEventListener("touchstart", onTouchStart);
+        document.removeEventListener("touchend", onTouchEnd);
+    });
 </script>
 
 <style scoped>
