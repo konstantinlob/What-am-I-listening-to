@@ -55,7 +55,7 @@
 </script>
 
 <template>
-    <div class="flex flex-col items-center justify-between h-full">
+    <div class="flex flex-col items-center justify-between h-screen">
         <div class="flex flex-col items-center justify-evenly grow">
             <div>
                 <h1 class="flex justify-center text-xl font-bold">What Am I Listening To?</h1>

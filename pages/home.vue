@@ -4,14 +4,14 @@
         <TimeframeSelection class="pb-5" />
         <div class="w-[400px] relative">
             <transition name="statistics" mode="out-in">
-                <component :is="slides[currentSlide]" :key="activeTimeframe" />
+                <component :is="slides[currentSlide]" :key="activeTimeframe" class="min-h-[80vh]" />
             </transition>
             <div class="absolute top-0 flex w-full h-full">
                 <button class="w-1/3 h-full no-tap-highlight" @click="previousSlide" />
                 <button class="w-2/3 h-full no-tap-highlight" @click="nextSlide" />
             </div>
         </div>
-        <MusicPlayer class="absolute left-0 bottom-0 right-0" />
+        <MusicPlayer class="fixed left-0 bottom-0 right-0" />
     </section>
 </template>
 

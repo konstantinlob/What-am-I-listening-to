@@ -1,5 +1,5 @@
 <template>
-    <section class="flex flex-col items-center h-max">
+    <section class="flex flex-col items-center justify-center">
         <h1 class="text-[28px] pb-6 text-center">Artists Popularity Iceberg</h1>
         <Iceberg class="w-[300px] h-[500px]" :data="orderedItems" />
     </section>
