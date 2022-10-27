@@ -1,6 +1,6 @@
 <template>
     <section class="flex flex-col items-center justify-center">
-        <h1 class="text-[28px] pb-6 text-center">Artists Popularity Iceberg</h1>
+        <h1 class="statistics-title text-center">Artists Popularity Iceberg</h1>
         <Iceberg class="w-[300px] h-[500px]" :data="orderedItems" />
     </section>
 </template>
@@ -49,3 +49,9 @@
         .flat()
         .flatMap(artist => artist === null ? null : { img: artist.images[0].url, text: artist.name });
 </script>
+
+<style scoped>
+.statistics-title {
+    font-size: min(30px, 8vw);
+}
+</style>

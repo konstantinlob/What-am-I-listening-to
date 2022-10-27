@@ -1,6 +1,6 @@
 <template>
     <section class="flex flex-col justify-center items-center">
-        <h1 class="text-[28px] pb-6">Your Top Tracks Analysed</h1>
+        <h1 class="statistics-title">Your Top Tracks Analysed</h1>
         <RadarChart :width="360" :height="360" :data="chartData" />
         <p class="text-gray">We analysed your Top Tracks for audio features</p>
     </section>
@@ -60,3 +60,9 @@
         ([featureName, valueSum]) => ({ name: toTitleCase(featureName), value: valueSum / trackCount }),
     );
 </script>
+
+<style scoped>
+.statistics-title {
+    font-size: min(30px, 8vw);
+}
+</style>

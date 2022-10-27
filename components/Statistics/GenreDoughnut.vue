@@ -1,6 +1,6 @@
 <template>
     <section class="flex flex-col justify-center items-center">
-        <h1 class="text-[28px] pb-6">Your Favorite Genres</h1>
+        <h1 class="statistics-title mb-4">Your Favorite Genres</h1>
         <Doughnut :doughnut-data="genres" :width="360" :height="360" />
         <p class="text-gray">We found out what genres you like</p>
     </section>
@@ -37,3 +37,9 @@
         }
     }));
 </script>
+
+<style scoped>
+.statistics-title {
+    font-size: min(30px, 8vw);
+}
+</style>
