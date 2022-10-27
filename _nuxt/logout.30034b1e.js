@@ -1,1 +1,0 @@
-import{a as o,w as a,b as r}from"./entry.ad4d954d.js";const s=o({__name:"logout",async setup(m){let e,t;return localStorage.removeItem("auth-token"),localStorage.removeItem("refresh-token"),localStorage.removeItem("auth-state"),localStorage.removeItem("code-verifier"),[e,t]=a(()=>r("/")),await e,t(),()=>{}}});export{s as default};
