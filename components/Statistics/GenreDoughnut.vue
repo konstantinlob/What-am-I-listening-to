@@ -1,7 +1,7 @@
 <template>
     <section class="flex flex-col justify-center items-center">
         <h1 class="text-[28px] pb-6">Your Favorite Genres</h1>
-        <Doughnut :width="375" :height="375" :doughnut-data="genres" />
+        <Doughnut :doughnut-data="genres" :width="360" :height="360" />
         <p class="text-gray">We found out what genres you like</p>
     </section>
 </template>
