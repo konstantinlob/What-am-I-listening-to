@@ -1,7 +1,7 @@
 <template>
     <section class="w-full h-full flex flex-col justify-center items-center">
-        <h1 class="text-[30px] pb-6">Your Top Tracks Analysed</h1>
-        <RadarChart :data="chartData" />
+        <h1 class="text-[28px] pb-6">Your Top Tracks Analysed</h1>
+        <RadarChart :width="375" :height="375" :data="chartData" />
         <p class="text-gray">We analysed your Top Tracks for audio features</p>
     </section>
 </template>
