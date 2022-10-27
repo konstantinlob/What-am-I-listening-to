@@ -1,5 +1,5 @@
 <template>
-    <section class="h-full px-9 pb-8 overflow-hidden" :class="{'bg-spotify-green': step === 0}">
+    <section class="h-screen px-9 pb-8 overflow-hidden" :class="{'bg-spotify-green': step === 0}">
         <transition
             mode="out-in"
             :name="transitionName"

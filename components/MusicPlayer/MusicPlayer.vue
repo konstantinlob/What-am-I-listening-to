@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="playbackState" class="bg-spotify-green bg-opacity-50">
+        <div v-if="playbackState" class="bg-spotify-green bg-opacity-50 rounded-t-md">
             <div v-if="playbackState.item">
                 <div class="flex h-16 justify-start">
                     <div class="h-full p-1">
